@@ -1,0 +1,36 @@
+include('conexion1');
+
+if (isset($_POST['equipos'])) {
+    $equipos = $_POST['equipos'];
+
+    $output = fopen('php://output', 'w');
+    fputcsv($output, array('Nombre Usuario', 'Área', 'Ubicación', 'Correo', 'Serie Calidad', 'Marca', 'Tipo', 'Procesador', 'Sistema Operativo', 'RAM'));
+
+    $sql = "SELECT nombre_comp, area, ubicacion, email_usuario, equipo, num_serie, marca, tipo, procesador, sis_ope, disco, ram FROM `equipo_usuario` WHERE ubicacion = 'Oficinas'";
+
+    $usuario = "veco";
+	$password = "Vec83Dv19iSa@";
+	$servidor = "localhost";
+	$basededatos = "veco_sims_devecchi";
+
+    $conexion = mysqli_connect( $servidor, $usuario, $password ) or die ("No se ha podido conectar al servidor de Base de datos");
+    $db = mysqli_select_db( $conexion, $basededatos ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+
+    $resultado = mysqli_query( $conexion, $sql ) or die ( "Algo ha ido mal en la consulta a la base de datos");
+    
+    while ($filaR = mysqli_fetch_array( $resultado )){    
+		fputcsv($salida, array(utf8_decode($filaR['nombre_comp']),
+				$filaR['area'],
+				$filaR['ubicacion'],
+				$filaR['email_usuario'],
+				$filaR['equipo'],
+				$filaR['num_serie'],
+				$filaR['marca'],
+				$filaR['tipo'],
+				$filaR['procesador'],
+				$filaR['sis_ope'],
+				$filaR['disco'],
+                $filaR['ram']));
+}
+
+}
