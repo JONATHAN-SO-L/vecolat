@@ -1,0 +1,30 @@
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(./soporte/lib/class_mysql.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 8
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(): Failed opening './soporte/lib/class_mysql.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 8
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(./soporte/lib/config.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 9
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(): Failed opening './soporte/lib/config.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 9
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(./soporte/inc/links.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 16
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(): Failed opening './soporte/inc/links.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 16
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(./soporte/inc/navbar.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:01:53 UTC] PHP Warning:  include(): Failed opening './soporte/inc/navbar.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:03:26 UTC] PHP Warning:  include(./soporte/inc/navbar.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:03:26 UTC] PHP Warning:  include(): Failed opening './soporte/inc/navbar.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:13:57 UTC] PHP Warning:  include(soporte/inc/navbar.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:13:57 UTC] PHP Warning:  include(): Failed opening 'soporte/inc/navbar.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:14:12 UTC] PHP Warning:  include(/soporte/inc/navbar.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:14:12 UTC] PHP Warning:  include(): Failed opening '/soporte/inc/navbar.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:14:23 UTC] PHP Warning:  include(./soporte/inc/navbar.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/index.php on line 19
+[14-Apr-2020 15:14:23 UTC] PHP Warning:  include(): Failed opening './soporte/inc/navbar.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/index.php on line 19
+[20-Apr-2020 10:53:32 America/Mexico_City] PHP Warning:  include(./inc/navbarsop.php): failed to open stream: No such file or directory in /home/veco/public_html/soporte/user/ticket-view.php on line 10
+[20-Apr-2020 10:53:32 America/Mexico_City] PHP Warning:  include(): Failed opening './inc/navbarsop.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/soporte/user/ticket-view.php on line 10
+[20-Apr-2020 10:53:32 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/veco/public_html/soporte/index.php:12) in /home/veco/public_html/soporte/user/ticket-view.php on line 11
+[11-Jan-2022 14:50:43 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; ICS has a deprecated constructor in /home/veco/public_html/soporte/email_prueba.php on line 3
+[11-Jan-2022 14:55:04 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; ICS has a deprecated constructor in /home/veco/public_html/soporte/email_prueba.php on line 3
+[11-Jan-2022 14:55:26 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; ICS has a deprecated constructor in /home/veco/public_html/soporte/email_prueba.php on line 3
+[11-Jan-2022 15:03:11 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; ICS has a deprecated constructor in /home/veco/public_html/soporte/email_prueba.php on line 3
+[11-Jan-2022 16:48:18 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; ICS has a deprecated constructor in /home/veco/public_html/soporte/email_prueba.php on line 3
+[11-Jan-2022 16:50:48 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; ICS has a deprecated constructor in /home/veco/public_html/soporte/email_prueba.php on line 3
+[11-Jan-2022 17:31:28 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; ICS has a deprecated constructor in /home/veco/public_html/soporte/email_prueba.php on line 3
+[11-Jan-2022 17:32:56 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/veco/public_html/soporte/email_prueba.php on line 134
+[11-Jan-2022 17:34:13 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/veco/public_html/soporte/email_prueba.php on line 134
+[11-Jan-2022 17:34:35 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/veco/public_html/soporte/email_prueba.php on line 134
+[11-Jan-2022 17:35:32 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/veco/public_html/soporte/email_prueba.php on line 134

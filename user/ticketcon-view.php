@@ -1,0 +1,182 @@
+<?php
+/*
+ * @author: Meraz Prudencio Griselda  
+ * ghriz2811@gmail.com
+ * @version: 08/2019 v1
+ */
+ ?>
+<?php
+if(isset($_POST['del_ticket'])){
+  $id=MysqlQuery::RequestPost('del_ticket');
+
+  if(MysqlQuery::Eliminar("ticket", "serie='$id'")){
+    echo '
+        <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="text-center">TICKET ELIMINADO</h4>
+            <p class="text-center">
+                La incidencia fue eliminada con exito
+            </p>
+        </div>
+    ';
+  }else{
+    echo '
+        <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+            <p class="text-center">
+                Lo sentimos, no hemos podido eliminar la incidencia
+            </p>
+        </div>
+    ';
+  }
+}
+$email_consul=  MysqlQuery::RequestGet('email_consul');
+$id_colsul= MysqlQuery::RequestGet('id_consul');
+
+$consulta_tablaTicket=Mysql::consulta("SELECT * FROM ticket WHERE serie= '$id_colsul' AND email_cliente='$email_consul'");
+if(mysqli_num_rows($consulta_tablaTicket)>=1){
+  $lsT=mysqli_fetch_array($consulta_tablaTicket, MYSQLI_ASSOC);   
+?>
+<style>
+@media (min-width: 768px)
+.col-sm-6 {
+    width: 33%;
+}
+</style>
+        <div class="container">
+            <div class="row well">
+            <div class="col-sm-2">
+                <img src="img/status.png" class="img-responsive" alt="Image">
+            </div>
+            <div class="col-sm-10 lead text-justify">
+              <h2 class="text-info">Estado del Ticket</h2>
+              <p>Si su <strong>Ticket</strong> no ha sido solucionado aún, espere pacientemente, estamos trabajando para poder resolver su problema y darle una solución.</p>
+            </div>
+          </div><!--fin row well-->
+          <div class="row">
+              <div class="col-sm-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading text-center"><h4><i class="fa fa-ticket"></i> Ticket &nbsp;#<?php echo $lsT['serie']; ?></h4></div>
+                      <div class="panel-body">
+                          <div class="container">
+                              <div class="col-sm-12">
+                                  <div class="row">
+                                      <div class="col-sm-4">
+                                          <img class="img-responsive" alt="Image" src="img/tux_repair.png">
+										  
+                                      </div>
+                                      <div class="col-sm-8">
+                                          <div class="row">
+                                              <div class="col-sm-6"><strong>Fecha de levantamiento de ticket:</strong> <?php echo utf8_encode($lsT['fecha']); ?></div>
+											  <div class="col-sm-6"><strong>Equipo:</strong> <?php echo utf8_encode($lsT['equipo']); ?></div>
+                                              
+                                          </div>
+                                          <br>
+                                          <div class="row">
+                                              <div class="col-sm-6"><strong>usuario:</strong> <?php echo utf8_encode($lsT['nombre_usuario']); ?></div>
+                                              <div class="col-sm-6"><strong>Estado:</strong> <?php echo utf8_encode($lsT['estado_ticket']); ?></div>
+                                          </div>
+                                          <br>
+                                          <div class="row">
+											  <div class="col-sm-6"><strong>Email:</strong> <?php echo utf8_encode($lsT['email_cliente']); ?></div>
+                                              <div class="col-sm-6"><strong>Área:</strong> <?php echo utf8_decode($lsT['area']); ?></div>                                           
+                                          </div>
+                                          <br>
+                                          <div class="row">
+											   <div class="col-sm-6"><strong>Problema:</strong> 
+											  <div class='input-group'>
+											 <textarea class="form-control" rows="3"  name="mensaje_ticket" style="width: 580px;"><?php echo utf8_decode($lsT['mensaje'])?></textarea>
+											  </div>
+											  </div>   
+                                          </div>
+                                          
+                                          <br>
+                                          <?php
+								$fecha_ticket = $lsT['fecha'];
+								$email_ticket = $lsT['email_cliente'];	
+								$id_ticket = $lsT['serie'];	
+								$ruta = "imgticket/$email_ticket/$id_ticket/";
+								if(!file_exists($ruta)){
+									mkdir($ruta);
+								}
+								if($dir = opendir($ruta)){
+									while($archivo = readdir($dir)){
+										if($archivo != '.' && $archivo != '..'){
+											echo "<a href='imgticket/$email_ticket/$id_ticket/$archivo' target='_blank' ><img src='./img/documento.png' width='60' height='60'/> <strong>$archivo</strong></a> ";
+								}
+							}
+								}
+									?>
+									    <br>
+									    <br>
+                                          <div class="row">
+                                              <div class="col-sm-6"><strong>Fecha Solución:</strong> <?php echo utf8_encode($lsT['fecha_solucion']); ?></div>
+											  <div class="col-sm-6"><strong>Resuelto por:</strong> <?php echo utf8_encode($lsT['observaciones']); ?></div>                                 
+                                          </div>
+                                          <br>
+                                          <div class="row">
+											   <div class="col-sm-6"><strong>Solución:</strong> 
+											  <div class='input-group'>
+											 <textarea class="form-control" rows="3" style="width: 580px;"><?php echo utf8_decode($lsT['solucion'])?></textarea>
+											  </div>
+											  </div>   
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="panel-footer text-center">
+                          <div class="row">
+                              <h4>Opciones</h4>
+							  <div class="col-sm-6">
+                                   <a href="./soporte.php?view=soporte" ><button  type="submit" value="Regresar" name="" class="btn btn-primary" style="text-align:center"><i class="fa fa-reply"></i>&nbsp;&nbsp;Regresar</button></a>
+                              </div>
+							  
+                              <br class="hidden-lg hidden-md hidden-sm">
+							  <div class="col-sm-6">
+                              <!--div class="col-sm-6">
+                                  <form action="" method="POST">
+                                      <input type="text" value="<?php echo $lsT['serie']; ?>" name="del_ticket" hidden="">
+                                      <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp;  Eliminar Ticket</button>
+                                  </form>
+                              </div-->
+                              <br class="hidden-lg hidden-md hidden-sm">
+                              <div class="col-sm-6">
+                                   <button id="save" class="btn btn-success" data-id="<?php echo $lsT['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar Ticket en PDF</button>
+                              </div>
+							  </div>
+                          </div>
+                      </div>
+                    </div>
+              </div>
+          </div>
+        </div>
+ <?php }else{ ?>
+        <div class="container">
+            <div class="row  animated fadeInDownBig">
+                <div class="col-sm-4">
+                    <img src="img/error.png" alt="Image" class="img-responsive"/><br>
+                    <img src="img/SadTux.png" alt="Image" class="img-responsive"/>
+                    
+                </div>
+                <div class="col-sm-7 text-center">
+                    <h1 class="text-danger">Lo sentimos ha ocurrido un error al hacer la consulta, esto se debe a lo siguiente:</h1>
+                    <h3 class="text-warning"><i class="fa fa-check"></i> El Ticket ha sido eliminado completamente.</h3>
+                    <h3 class="text-warning"><i class="fa fa-check"></i> Los datos ingresados no son correctos.</h3>
+                    <br>
+                    <h3 class="text-primary"> Por favor verifique que su <strong>id </strong> y <strong>email</strong> sean correctos, e intente nuevamente.</h3>
+                    <h4><a href="./soporte.php?view=soporte" class="btn btn-primary"><i class="fa fa-reply"></i> Regresar a Ticket</a></h4>
+                </div>
+                <div class="col-sm-1">&nbsp;</div>
+            </div>
+        </div>
+<?php } ?>
+<script>
+  $(document).ready(function(){
+    $("button#save").click(function (){
+       window.open ("./lib/pdf.php?id="+$(this).attr("data-id"));
+    });
+  });
+</script>

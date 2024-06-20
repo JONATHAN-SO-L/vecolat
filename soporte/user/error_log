@@ -1,0 +1,14 @@
+[17-Apr-2020 17:48:54 UTC] PHP Warning:  include(./inc/timezone.php): failed to open stream: No such file or directory in /home/veco/public_html/user/equipo.php on line 62
+[17-Apr-2020 17:48:54 UTC] PHP Warning:  include(): Failed opening './inc/timezone.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/user/equipo.php on line 62
+[17-Apr-2020 17:49:52 UTC] PHP Warning:  include(./inc/links.php): failed to open stream: No such file or directory in /home/veco/public_html/user/equipo.php on line 51
+[17-Apr-2020 17:49:52 UTC] PHP Warning:  include(): Failed opening './inc/links.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/user/equipo.php on line 51
+[17-Apr-2020 17:49:52 UTC] PHP Warning:  include(./inc/navbarsop.php): failed to open stream: No such file or directory in /home/veco/public_html/user/equipo.php on line 52
+[17-Apr-2020 17:49:52 UTC] PHP Warning:  include(): Failed opening './inc/navbarsop.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/user/equipo.php on line 52
+[17-Apr-2020 17:49:52 UTC] PHP Warning:  include(./inc/timezone.php): failed to open stream: No such file or directory in /home/veco/public_html/user/equipo.php on line 63
+[17-Apr-2020 17:49:52 UTC] PHP Warning:  include(): Failed opening './inc/timezone.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/user/equipo.php on line 63
+[17-Apr-2020 17:49:55 UTC] PHP Warning:  include(./inc/links.php): failed to open stream: No such file or directory in /home/veco/public_html/user/equipo.php on line 51
+[17-Apr-2020 17:49:55 UTC] PHP Warning:  include(): Failed opening './inc/links.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/user/equipo.php on line 51
+[17-Apr-2020 17:49:55 UTC] PHP Warning:  include(./inc/navbarsop.php): failed to open stream: No such file or directory in /home/veco/public_html/user/equipo.php on line 52
+[17-Apr-2020 17:49:55 UTC] PHP Warning:  include(): Failed opening './inc/navbarsop.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/user/equipo.php on line 52
+[17-Apr-2020 17:49:55 UTC] PHP Warning:  include(./inc/timezone.php): failed to open stream: No such file or directory in /home/veco/public_html/user/equipo.php on line 63
+[17-Apr-2020 17:49:55 UTC] PHP Warning:  include(): Failed opening './inc/timezone.php' for inclusion (include_path='.:/opt/cpanel/ea-php71/root/usr/share/pear') in /home/veco/public_html/user/equipo.php on line 63
