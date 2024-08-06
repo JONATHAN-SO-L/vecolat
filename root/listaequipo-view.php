@@ -88,7 +88,7 @@ footer {
                                 $regpagina = 25;
                                 $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-                                $selrh=mysqli_query($mysqli,"SELECT SQL_CALC_FOUND_ROWS * FROM equipo_usuario WHERE ubicacion='Oficinas' LIMIT $inicio, $regpagina");
+                                $selrh=mysqli_query($mysqli,"SELECT SQL_CALC_FOUND_ROWS * FROM equipo_usuario WHERE ubicacion='Oficinas' ORDER BY num_serie ASC LIMIT $inicio, $regpagina");
 
                                 $totalregistros = mysqli_query($mysqli,"SELECT FOUND_ROWS()");
                                 $totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
