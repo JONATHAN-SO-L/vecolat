@@ -61,14 +61,13 @@
 		}else{
 			$tipo_usuario="";
 		}
-			$from="Soporte Devinsa <tecnicos@veco.lat>";
+			$from="Soporte Devinsa <tecnicos@veco.mx>";
 			 $cabecera="From:".$from;
-			  $mensaje=utf8_decode("Estimado usuario ha sido dado de alta en el Portal Devinsa,\r\n Link: https://veco.lat/soporte.php 
-			  \r\n Sus credenciales de acceso son: \r\n \r\n Correo: ".$email_reg." \r\n  Contraseña Temporal:  ".$clave_reg2." \r\n En cualquier momento puede cambiar su contraseña. \r\n \r\n
-          Saludos Cordiales\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
-Por favor, responda de RECIBIDO a este mensaje");
+			  $mensaje=utf8_decode("Estimado usuario ha sido dado de alta en el Portal de Tickets Devinsa,,\r\n Link: https://veco.lat/soporte.php 
+			  \r\n Sus credenciales de acceso son: \r\n \r\n Correo: ".$email_reg." \r\n  Contraseña:  ".$clave_reg2." \r\n En cualquier momento puede cambiar su contraseña. \r\n \r\n
+          Saludos Cordiales\r\n Área de sistemas \r\n Ext. 250 \r\n   tecnicos@veco.mx \r\n \r\n Por favor, responda de RECIBIDO a este mensaje");
           $mensaje=wordwrap($mensaje, 70, "\r\n");
-		  $asunto_admin= "Acceso a Portal de Soporte";
+		  $asunto_admin= "Acceso a Portal de Tickets Devinsa";
          
       if(MysqlQuery::Guardar("usuario_sop", "nombre_usuario, clave, nombre_comp, email_usuario, area, ubicacion, telefono, tipo_usuario", "'$nombre_reg', '$clave_reg', '$user_nomb',  '$email_reg', '$area','$user_ubicacion', '$telefono_reg', '$tipo_usuario'")){
         
@@ -144,7 +143,7 @@ display:none;
             </div>
             <div class="form-group">
               <label><i class="fa fa-envelope"></i>&nbsp;Email</label>
-              <input type="email" class="form-control"  name="email_reg"  placeholder="email@email.com" required="">
+              <input type="email" class="form-control"  name="email_reg" placeholder="email@email.com" required="" value="@veco.mx">
             </div>
             <div class="form-group">
               <label><i class="fa fa-key"></i>&nbsp;Contraseña</label>

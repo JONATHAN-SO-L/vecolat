@@ -31,12 +31,39 @@
 	 <li data-target="#carousel-example-generic" data-slide-to="11"></li>
 	 <li data-target="#carousel-example-generic" data-slide-to="12"></li>
 	 <li data-target="#carousel-example-generic" data-slide-to="13"></li>
+	 <li data-target="#carousel-example-generic" data-slide-to="14"></li>
+	 <li data-target="#carousel-example-generic" data-slide-to="15"></li>
+	 <li data-target="#carousel-example-generic" data-slide-to="16"></li>
 
   </ol>
 	 <div class="carousel-inner">
 
+	   <!-- Flyer unidades externas -->
+	<div class="item active">
+		<center><img src="img/mvp.png" style="height: 85%; width: 85%;" alt="Misión, Visión y Política" title="Misión, Visión y Política"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
+	  <!-- Flyer unidades externas -->
+	<div class="item">
+		<center><img src="img/medios_externos.png" style="height: 50%; width: 50%;" alt="Flyer medios externos" title="Flyer medios externos"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
+	 <!-- Flyer cambio de contraseña -->
+	<div class="item">
+		<center><img src="img/cambio_contraseña.png" style="height: 50%; width: 50%;" alt="Flyer cambio de contraseña" title="Flyer cambio de contraseña"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
 	 <!-- Flyer respuesta a correos -->
-	 <div class="item active">
+	 <div class="item">
 			 <center><img src="img/COMSIS026FEB24 1.png" style="height: 50%; width: 50%;" alt="Flyer respuesta a correos" title="Flyer respuesta a correos"></center>
 			 <div class="carousel-caption">
 				  
@@ -165,7 +192,7 @@
 <script>
 	 $(document).ready(function(){
 		  $("#carousel-example-generic").carousel({
-				interval: 8000,
+				interval: 10000,
 		  });
 	 });
 </script>

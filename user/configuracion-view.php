@@ -43,6 +43,7 @@ include "./inc/navbarsop.php";
           $nombre_complete_update=MysqlQuery::RequestPost('name_complete_update');
           $old_user_update=MysqlQuery::RequestPost('old_user_update');
           $old_pass_update=md5(MysqlQuery::RequestPost('old_pass_update'));
+          $new_pass_mail = MysqlQuery::RequestPost('new_pass_update');
           $new_pass_update=md5(MysqlQuery::RequestPost('new_pass_update'));
           $email_update=MysqlQuery::RequestPost('email_update');
           
@@ -51,6 +52,7 @@ include "./inc/navbarsop.php";
           if(mysqli_num_rows($sql)>=1){
             MysqlQuery::Actualizar("usuario_sop", " clave='$new_pass_update'", "nombre_usuario='$old_user_update' and clave='$old_pass_update'");
 
+            $email_reg = $_SESSION['email'];
             $_SESSION['clave']=$new_pass_update;
 
             echo '
@@ -62,6 +64,20 @@ include "./inc/navbarsop.php";
                   </p>
               </div>
             ';
+
+            /***********************************************************
+            ENVÍO DE CORREO CON NUEVA CONTRASEÑA CAMBIADA POR EL USUARIO
+            ***********************************************************/
+            $from="Soporte Devinsa <tecnicos@veco.lat>";
+            $cabecera="From:".$from;
+            $mensaje=utf8_decode("Estimado usuario, ha actualizado su contraseña de acceso.\r\n Link: https://veco.lat/soporte.php 
+            \r\n Sus nuevas credenciales de acceso son: \r\n \r\n Correo: ".$email_reg." \r\n  Contraseña:  ".$new_pass_mail." \r\n\r\n En cualquier momento puede cambiar su contraseña. \r\n \r\n
+            Saludos Cordiales\r\n Área de sistemas \r\n Ext. 250 \r\n   tecnicos@veco.mx \r\n \r\n Por favor, responda de RECIBIDO a este mensaje");
+            $mensaje=wordwrap($mensaje, 70, "\r\n");
+            $asunto_admin= utf8_decode("Actualización de contraseña | PORTAL DEVINSA");
+
+            mail($email_reg, $asunto_admin, $mensaje, $cabecera);
+
           }else{
             echo '
               <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
