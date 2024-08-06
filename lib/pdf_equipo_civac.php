@@ -27,14 +27,14 @@ $this->SetFont("Arial","b",9);
 $this->Cell (37,7,utf8_decode('Fecha emisión'),1,1,'C');
 $this->SetFont("Arial","",9);
 $this->SetXY(237,15);
-$this->Cell (30,7,utf8_decode("08ABR24"),1,1,'C', true);
+$this->Cell (30,7,utf8_decode("08JUL24"),1,1,'C', true);
 
 $this->SetXY(200,22);
 $this->SetFont("Arial","b",9);
 $this->Cell (37,7,utf8_decode('Fecha revisión'),1,1,'C');
 $this->SetFont("Arial","",9);
 $this->SetXY(237,22);
-$this->Cell (30,7,utf8_decode("08ABR25"),1,1,'C', true);
+$this->Cell (30,7,utf8_decode("08JUL25"),1,1,'C', true);
 
 $this->SetXY(200,29);
 $this->SetFont("Arial","b",9);
@@ -122,7 +122,7 @@ $pdf->Cell (30,7,utf8_decode(""),1,1,'C', true);
 	// Selección de la base de datos
 	$db = mysqli_select_db( $conexion, $basededatos ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
 
-	$consulta = "SELECT * FROM equipo_usuario WHERE equipo != 'Celular' AND nombre_comp != 'Pruebas' Order by area ASC, num_serie";
+	$consulta = "SELECT * FROM equipo_usuario WHERE equipo != 'Celular' AND nombre_comp != 'Pruebas' AND equipo != 'Maquinaria' Order by area ASC, num_serie";
 	$reg = mysqli_query( $conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos");
 
     while ($row = mysqli_fetch_array( $reg )){
