@@ -63,6 +63,11 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
         }else{
             $seguimiento= NULL;
         }
+        if(isset($_POST['name_equipo'])){
+            $equipo= $_POST['name_equipo'];
+        }else{
+            $equipo= NULL;
+        }
 
 
 /***************************************************************************************************
@@ -91,13 +96,13 @@ switch ($_POST['estado_ticket']) {
      $email= $reg['email_cliente'];
      $email_soporte= $reg['solucion_admin'];
      
-     $mensaje_reprog=utf8_decode("Se ha reprogramado el mantenimiento ".$serie_ticket." con el seguimiento mencionado a continuación: \r\n \r\n ".$seguimiento." \r\n \r\n 
+     $mensaje_reprog=utf8_decode("Se ha reprogramado el mantenimiento ".$serie_ticket." del equipo ".$equipo."con el seguimiento mencionado a continuación: \r\n \r\n ".$seguimiento." \r\n \r\n 
      Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
      Por favor, responda de conformidad a este correo");
      $mensaje_reprog=wordwrap($mensaje_reprog, 70, "\r\n");
 
      $mensaje_user_reprog=utf8_decode("Estimado usuario.\r\n\r\n
-     Se ha reprogramado el mantenimiento ".$serie_ticket." con el seguimiento mencionado a continuación: \r\n \r\n ".$seguimiento." \r\n\r\n 
+     Se ha reprogramado el mantenimiento ".$serie_ticket." del equipo ".$equipo."con el seguimiento mencionado a continuación: \r\n \r\n ".$seguimiento." \r\n\r\n 
      Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
      Por favor, responda de conformidad a este correo");
 
@@ -177,7 +182,7 @@ switch ($_POST['estado_ticket']) {
         $cabecera="From:".$from;
         $asunto="Mantenimiento ".$serie_ticket." llevado en tiempo y forma";
         $email= $reg['email_cliente'];
-        $mensaje_mail=utf8_decode("Estimado usuario se ha realizado el mantenimiento ".$serie_ticket." correspondiente a su equipo con las siguientes observaciones: ".$solucion_edit." \r\n \r\n 
+        $mensaje_mail=utf8_decode("Estimado usuario se ha realizado el mantenimiento ".$serie_ticket." correspondiente a su equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n 
         Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n
         Por favor, ES IMPORTANTE RESPONDA EL CORREO CON SU CONFORMIDAD DE LA SOLUCIÓN.");
         $mensaje_mail=wordwrap($mensaje_mail, 70, "\r\n");
@@ -190,7 +195,7 @@ switch ($_POST['estado_ticket']) {
         $mensaje_root=wordwrap($mensaje_root, 70, "\r\n");
 
         $email_jefe = "s.gonzalez@veco.com.mx";
-        $mensaje_jefe=utf8_decode("Se ha realizado el mantenimiento correspondiente al ticket #".$serie_ticket." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
+        $mensaje_jefe=utf8_decode("Se ha realizado el mantenimiento correspondiente al ticket #".$serie_ticket." del equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
         Solicitud de mejora (Requisiciones): ".$requisiciones." \r\n \r\n
         Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
         Por favor, NO responda a este mensaje, es un envio automatico");

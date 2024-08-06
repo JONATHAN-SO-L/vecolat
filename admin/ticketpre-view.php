@@ -247,6 +247,7 @@ if(isset($_POST['id_del'])){
                                     <th class="text-center">Estado</th>
                                     <th class="text-center">Ubicacion</th>
                                     <th class="text-center">Fecha de Mantenimiento</th>
+                                    <th class="text-center">Quien Soluciona</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -273,7 +274,7 @@ if(isset($_POST['id_del'])){
                                     <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
                                     <td class="text-center"><?php echo $row['ubicacion']; ?></td>
                                     <td class="text-center"><?php echo $row['fecha_mant']; ?></td>
-
+                                    <td class="text-center"><?php echo $row['solucion_admin']; ?></td>
                                 </tr>
                                 <?php
                                 $ct++;

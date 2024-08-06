@@ -12,6 +12,7 @@
          if(isset($_POST['email_reg']) && isset($_POST['usuario'])){
             $email_reg=MysqlQuery::RequestPost('email_reg');
             $usuario=MysqlQuery::RequestPost('usuario');
+            $pass_new=MysqlQuery::RequestPost('admin_clave_up');
             $pass_admin_update=md5(MysqlQuery::RequestPost('admin_clave_up'));
 
             $sql=Mysql::consulta("SELECT * FROM usuario_sop WHERE nombre_comp= '$usuario' AND email_usuario='$email_reg'");
@@ -28,6 +29,20 @@
                             </p>
                         </div>
                     ';
+
+                    /*******************************************************************
+                    ENVÍO DE CORREO CON NUEVA CONTRASEÑA CAMBIADA POR EL SOPORTE TÉCNICO
+                    *******************************************************************/
+                    $from="Soporte Devinsa <tecnicos@veco.lat>";
+                    $cabecera="From:".$from;
+                    $mensaje=utf8_decode("Estimado usuario, el soporte técnico a cambiado su contraseña de acceso.\r\n Link: https://veco.lat/soporte.php 
+                    \r\n Sus nuevas credenciales de acceso son: \r\n \r\n Correo: ".$email_reg." \r\n  Contraseña:  ".$pass_new." \r\n\r\n En cualquier momento puede cambiar su contraseña. \r\n \r\n
+                    Saludos Cordiales\r\n Área de sistemas \r\n Ext. 250 \r\n   tecnicos@veco.mx \r\n \r\n Por favor, responda de RECIBIDO a este mensaje");
+                    $mensaje=wordwrap($mensaje, 70, "\r\n");
+                    $asunto_admin= utf8_decode("Actualización de contraseña | PORTAL DEVINSA");
+
+                    mail($email_reg, $asunto_admin, $mensaje, $cabecera);
+
                 }else{
                     echo '
                         <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -189,7 +204,7 @@ footer {
 			<br>
                                  <div class="form-group">
                                <label><i class="fa fa-unlock-alt"></i>&nbsp;Nueva contraseña</label>
-                               <input type="password" class="form-control" name="admin_clave_up" placeholder="Nueva contraseña" required="">
+                               <input type="text" class="form-control" name="admin_clave_up" placeholder="Nueva contraseña" required="">
                              </div>
                              <button type="submit" class="btn btn-info">Actualizar Contraseña</button>
                            </form>

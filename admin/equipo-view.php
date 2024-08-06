@@ -83,6 +83,8 @@
 	
 	</div>
 	<div class="col-sm-9">
+	<a href="./lib/pdf_mantenimiento.php" class="btn btn-sm btn-warning btn-sm pull-right"  target="_blank"><i class="fa fa-file-pdf-o" ></i>&nbsp;&nbsp;PDF Maquinaria Mantenimiento</a>
+
 	<a href="./lib/pdf_equipo_civac.php" class="btn btn-sm btn-danger btn-sm pull-right"  target="_blank"><i class="fa fa-file-pdf-o" ></i>&nbsp;&nbsp;PDF VECO</a>
 
 	<form method = "POST" action = "/admin/listado_devinsa.php">
@@ -141,6 +143,7 @@
 		<option value="PC">PC</option>
 		<option value="Workstation">Workstation</option>
 		<option value="Celular">Celular</option>
+		<option value="Maquinaria">Maquinaria</option>
 		</select>
 		</div>
 		
@@ -161,6 +164,7 @@
 		<option value="Laptop">Laptop</option>
 		<option value="Desktop">Desktop</option>
 		<option value="Celular">Celular</option>
+		<option value="Maquinaria">Maquinaria</option>
 		</select>
 		</div>
 		
@@ -192,10 +196,15 @@
 		<option value="Android 11">Android 11</option>
 		<option value="Android 12">Android 12</option>
 		<option value="Android 13">Android 13</option>
+		<option value="Android 14">Android 14</option>
 		<option value="iOS 10">iOS 10</option>
 		<option value="iOS 15">iOS 15</option>
 		<option value="iOS 16">iOS 16</option>
 		<option value="iOS 17">iOS 17</option>
+		<option value="iOS 18">iOS 18</option>
+		<option value="RDOS">RDOS</option>
+		<option value="W 3.11">W 3.11</option>
+		<option value="N/A">No aplica - Sin sistema operativo</option>
 		</select>
 		</div>
 		
