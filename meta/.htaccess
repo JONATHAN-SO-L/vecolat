@@ -1,6 +1,0 @@
-
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^meta\.veco\.lat$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.meta\.veco\.lat$
-RewriteRule ^/?$ "http\:\/\/veco\.lat\/meta" [R=301,L]
-
