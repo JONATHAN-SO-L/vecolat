@@ -1,2 +1,2 @@
 # vecolat
-Repositiry whole site of veco.lat
+Repository of whole site of veco.lat
