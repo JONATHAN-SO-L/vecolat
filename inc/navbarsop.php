@@ -1,11 +1,4 @@
 <?php
-/*
-* @author: Meraz Prudencio Griselda  
-* ghriz2811@gmail.com
-* @version: 08/2019 v1
-*/
-?>
-<?php
 if(isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])){
     include "./process2/login.php";
 }
@@ -98,6 +91,15 @@ a.navbar-brand {
             <li>
             <a href="admin.php?view=checador"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;Checador</a>
             </li>
+            <li>
+            <a href="./user/permisos_lista.php"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;Listado de Permisos de Ausentismo</a>
+            </li>
+            <li>
+            <a href="./user/permisos_rh.php"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;Permisos</a>
+            </li>
+            <li>
+            <a href="./checador/views/advanced_conf.php"><i class="fa fa-cog"></i>&nbsp;&nbsp;Configuracion Avanzada de Permisos</a>
+            </li>
             <?php endif; ?>
             
             <!-- RH -->
@@ -106,7 +108,16 @@ a.navbar-brand {
                 <a href="soporte.php?view=confrh"><i class="fa fa-cogs"></i>&nbsp;&nbsp;Configuracion</a>
                 </li> 
                 <li>
-                <a href="./soporte.php?view=checadas"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;Checadas</a>
+                <a href="./soporte.php?view=checadas"><i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;&nbsp;Checadas</a>
+                </li>
+                <li>
+                    <a href="./user/permisos_lista.php"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;Listado de Permisos de Ausentismo</a>
+                </li>
+                <li>
+                <a href="./user/permisos_rh.php"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;Permisos</a>
+                </li>
+                <li>
+                <a href="./checador/views/advanced_conf.php"><i class="fa fa-cog"></i>&nbsp;&nbsp;Configuracion Avanzada de Permisos</a>
                 </li>
                 <?php endif; ?>
                 
