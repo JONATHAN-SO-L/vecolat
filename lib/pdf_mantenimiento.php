@@ -34,7 +34,7 @@ $this->SetFont("Arial","b",9);
 $this->Cell (37,7,utf8_decode('Fecha emisión'),1,1,'C');
 $this->SetFont("Arial","",9);
 $this->SetXY(237,22);
-$this->Cell (30,7,utf8_decode("25JUL24"),1,1,'C', true);
+$this->Cell (30,7,utf8_decode("06ENE25"),1,1,'C', true);
 
 /*$this->SetXY(200,29);
 $this->SetFont("Arial","b",9);
@@ -51,12 +51,12 @@ $this->Ln(30);
     $this->Cell (50,7,"Usuario",1,0,'C',true);
     $this->Cell (37,7,utf8_decode("Área"),1,0,'C',true);
     $this->Cell (30,7,"Equipo",1,0,'C',true);
-    $this->Cell (35,7,"Serie Calidad",1,0,'C',true);
+    $this->Cell (25,7,"Serie Calidad",1,0,'C',true);
     $this->Cell (20,7,"Marca",1,0,'C',true);
     $this->Cell (20,7,"Tipo",1,0,'C',true);
     $this->Cell (20,7,"Procesador",1,0,'C',true);
     $this->Cell (22,7,"Sistema",1,0,'C',true);
-    $this->Cell (18,7,"HDD",1,0,'C',true);
+    $this->Cell (27,7,"Almacenamiento",1,0,'C',true);
     $this->Cell (18,7,"Ram",1,1,'C',true);
     }	
      function footer(){
@@ -97,12 +97,12 @@ $pdf->AddPage();
     $pdf->Cell (50,7,utf8_decode($row['nombre_comp']),1,0,'C');
     $pdf->Cell (37,7,utf8_decode($row['area']),1,0,'C');
     $pdf->Cell (30,7,utf8_decode($row['equipo']),1,0,'C');
-    $pdf->Cell (35,7,utf8_decode($row['num_serie']),1,0,'C');
+    $pdf->Cell (25,7,utf8_decode($row['num_serie']),1,0,'C');
     $pdf->Cell (20,7,utf8_decode($row['marca']),1,0,'C');
     $pdf->Cell (20,7,utf8_decode($row['tipo']),1,0,'C');
     $pdf->Cell (20,7,utf8_decode($row['procesador']),1,0,'C');
     $pdf->Cell (22,7,utf8_decode($row['sis_ope']),1,0,'C');
-    $pdf->Cell (18,7,utf8_decode($row['disco']),1,0,'C');
+    $pdf->Cell (27,7,utf8_decode($row['disco']),1,0,'C');
     $pdf->Cell (18,7,utf8_decode($row['ram']),1,1,'C');
 }
 

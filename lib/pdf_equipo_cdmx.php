@@ -20,14 +20,14 @@ $this->SetFont("Arial","b",9);
 $this->Cell (37,7,utf8_decode('Fecha emisión'),1,1,'C');
 $this->SetFont("Arial","",9);
 $this->SetXY(237,15);
-$this->Cell (30,7,utf8_decode("17ENE23"),1,1,'C', true);
+$this->Cell (30,7,utf8_decode("10ENE25"),1,1,'C', true);
 
 $this->SetXY(200,22);
 $this->SetFont("Arial","b",9);
 $this->Cell (37,7,utf8_decode('Fecha revisión'),1,1,'C');
 $this->SetFont("Arial","",9);
 $this->SetXY(237,22);
-$this->Cell (30,7,utf8_decode("20JUL23"),1,1,'C', true);
+$this->Cell (30,7,utf8_decode("10ENE26"),1,1,'C', true);
 
 $this->SetXY(200,29);
 $this->SetFont("Arial","b",9);
