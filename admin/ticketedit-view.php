@@ -1,11 +1,5 @@
 <?php
-/*
- * @author: Meraz Prudencio Griselda  
- * ghriz2811@gmail.com
- * @version: 08/2019 v1
- */
-?>
-<?php
+session_start();
 
 if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
   include ("conexi.php");
@@ -272,12 +266,12 @@ break;
 
 case 'Cancelado':
 $asunto_cancel = "Ticket ".$serie_ticket." CANCELADO";
-$mensaje_root_cancel=utf8_decode("Estimado Gerente \r\n El ticket ".$serie_ticket." ha sido CANCELADO por el técnico: ".$solucion_usuario."\r\n \r\n
+$mensaje_root_cancel=utf8_decode("Estimado Gerente \r\n El ticket ".$serie_ticket." ha sido CANCELADO por el Ingeniero(a) de Soporte: ".$solucion_usuario."\r\n \r\n
   El motivo es el siguiente: ".$solucion_edit."\r\n\r\n
   Saludos Cordiales.\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
   Por favor, responda a este mensaje");
 
-$mensaje_jefe_cancel=utf8_decode("El ticket ".$serie_ticket." ha sido CANCELADO por el técnico: ".$solucion_usuario."\r\n \r\n
+$mensaje_jefe_cancel=utf8_decode("El ticket ".$serie_ticket." ha sido CANCELADO por el Ingeniero(a) de Soporte: ".$solucion_usuario."\r\n \r\n
   El motivo es el siguiente: ".$solucion_edit."\r\n\r\n
   Saludos Cordiales.\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
   Por favor responda a este mensaje");

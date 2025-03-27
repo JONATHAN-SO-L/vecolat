@@ -85,6 +85,8 @@
 	<div class="col-sm-9">
 	<a href="./lib/pdf_mantenimiento.php" class="btn btn-sm btn-warning btn-sm pull-right"  target="_blank"><i class="fa fa-file-pdf-o" ></i>&nbsp;&nbsp;PDF Maquinaria Mantenimiento</a>
 
+	<a href="./lib/relacion_sgc.php" class="btn btn-sm btn-primary btn-sm pull-right"  target="_blank"><i class="fa fa-file-pdf-o" ></i>&nbsp;&nbsp;Plantilla Relación SGC</a>
+
 	<a href="./lib/pdf_equipo_civac.php" class="btn btn-sm btn-danger btn-sm pull-right"  target="_blank"><i class="fa fa-file-pdf-o" ></i>&nbsp;&nbsp;PDF VECO</a>
 
 	<form method = "POST" action = "/admin/listado_devinsa.php">

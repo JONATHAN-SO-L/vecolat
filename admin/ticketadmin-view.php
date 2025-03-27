@@ -153,6 +153,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                 <th class="text-center">Equipo</th>
                 <th class="text-center">Serie</th>
                 <th class="text-center">Estado</th>
+                <th class="text-center">Fecha Resuelto</th>
                 <th class="text-center">Tipo</th>
                 <th class="text-center">Resolvió</th>
             </tr>
@@ -173,6 +174,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <td class="text-center"><?php echo $row['equipo']; ?></td>
                                         <td class="text-center"><?php echo $row['serie']; ?></td>
                                         <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_solucion']; ?></td>
                                         <td class="text-center"><?php echo $row['tipo']; ?></td>
                                         <td class="text-center"><?php echo $row['observaciones']; ?></td>
                                         
@@ -236,6 +238,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                     <th class="text-center">Equipo</th>
                                     <th class="text-center">Serie</th>
                                     <th class="text-center">Estado</th>
+                                    <th class="text-center">Fecha Resuelto</th>
                                     <th class="text-center">Tipo</th>
                                     <th class="text-center">Ubicación</th>
                                     <th class="text-center">Resolvió</th>
@@ -257,6 +260,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <td class="text-center"><?php echo $row['equipo']; ?></td>
                                         <td class="text-center"><?php echo $row['serie']; ?></td>
                                         <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_solucion']; ?></td>
                                         <td class="text-center"><?php echo $row['tipo']; ?></td>
                                         <td class="text-center"><?php echo $row['ubicacion']; ?></td>
                                         <td class="text-center"><?php echo $row['observaciones']; ?></td>
@@ -321,6 +325,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <th class="text-center">Equipo</th>
                                         <th class="text-center">Serie</th>
                                         <th class="text-center">Estado</th>
+                                        <th class="text-center">Fecha Resuelto</th>
                                         <th class="text-center">Tipo</th>
                                         <th class="text-center">Ubicación</th>
                                         <th class="text-center">Resolvió</th>
@@ -347,6 +352,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <td class="text-center"><?php echo $row['equipo']; ?></td>
                                         <td class="text-center"><?php echo $row['serie']; ?></td>
                                         <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_solucion']; ?></td>
                                         <td class="text-center"><?php echo $row['tipo']; ?></td>
                                         <td class="text-center"><?php echo $row['ubicacion']; ?></td>
                                         <td class="text-center"><?php echo $row['observaciones']; ?></td>
@@ -409,6 +415,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <th class="text-center">Equipo</th>
                                         <th class="text-center">Serie</th>
                                         <th class="text-center">Estado</th>
+                                        <th class="text-center">Fecha Resuelto</th>
                                         <th class="text-center">Tipo</th>
                                         <th class="text-center">Ubicación</th>
                                         <th class="text-center">Resolvió</th>
@@ -435,6 +442,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <td class="text-center"><?php echo $row['equipo']; ?></td>
                                         <td class="text-center"><?php echo $row['serie']; ?></td>
                                         <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_solucion']; ?></td>
                                         <td class="text-center"><?php echo $row['tipo']; ?></td>
                                         <td class="text-center"><?php echo $row['ubicacion']; ?></td>
                                         <td class="text-center"><?php echo $row['observaciones']; ?></td>
@@ -513,6 +521,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                     <th class="text-center">Equipo</th>
                                     <th class="text-center">Serie</th>
                                     <th class="text-center">Estado</th>
+                                    <th class="text-center">Fecha Resuelto</th>
                                     <th class="text-center">Tipo</th>
                                     <th class="text-center">Ubicación</th>
                                     <th class="text-center">Resolvió</th>
@@ -534,6 +543,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <td class="text-center"><?php echo $row['equipo']; ?></td>
                                         <td class="text-center"><?php echo $row['serie']; ?></td>
                                         <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_solucion']; ?></td>
                                         <td class="text-center"><?php echo $row['tipo']; ?></td>
                                         <td class="text-center"><?php echo $row['ubicacion']; ?></td>
                                         <td class="text-center"><?php echo $row['observaciones']; ?></td>
@@ -596,6 +606,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                     <th class="text-center">Equipo</th>
                                     <th class="text-center">Serie</th>
                                     <th class="text-center">Estado</th>
+                                    <th class="text-center">Fecha Resueto</th>
                                     <th class="text-center">Tipo</th>
                                     <th class="text-center">Ubicación</th>
                                     <th class="text-center">Asesor Técnico</th>
@@ -617,6 +628,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <td class="text-center"><?php echo $row['equipo']; ?></td>
                                         <td class="text-center"><?php echo $row['serie']; ?></td>
                                         <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_solucion']; ?></td>
                                         <td class="text-center"><?php echo $row['tipo']; ?></td>
                                         <td class="text-center"><?php echo $row['ubicacion']; ?></td>
                                         <td class="text-center"><?php echo $row['observaciones']; ?></td>
@@ -649,7 +661,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                 $num_ticket_all=Mysql::consulta("SELECT * FROM sop_preventivo");
                 $num_total_all=mysqli_num_rows($num_ticket_all);*/
                 /* Tickets pendientes Hardware*/
-                $num_ticket_pend=Mysql::consulta("SELECT * FROM ticket WHERE estado_ticket='Pendiente' AND tipo='Hardware' AND ubicacion = '$ubicacion'");
+                $num_ticket_pend=Mysql::consulta("SELECT * FROM ticket WHERE estado_ticket='Pendiente' AND tipo='Hardware'/* AND ubicacion = '$ubicacion'*/");
                 $num_total_pend=mysqli_num_rows($num_ticket_pend);
 
                 /* Tickets pendientes Software*/
@@ -712,7 +724,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                     //}else
 
                                     if($_GET['ticket']=="pending"){
-                                        $consulta="SELECT SQL_CALC_FOUND_ROWS * FROM ticket WHERE estado_ticket='Pendiente' AND tipo = 'Hardware' AND ubicacion = '$ubicacion' LIMIT $inicio, $regpagina";
+                                        $consulta="SELECT SQL_CALC_FOUND_ROWS * FROM ticket WHERE estado_ticket='Pendiente' AND tipo = 'Hardware'/* AND ubicacion = '$ubicacion' */LIMIT $inicio, $regpagina";
                                     }elseif($_GET['ticket']=="pendingsoft"){
                                         $consulta="SELECT SQL_CALC_FOUND_ROWS * FROM ticket WHERE estado_ticket='Pendiente' AND tipo = 'Software'LIMIT $inicio, $regpagina";
                                     }elseif($_GET['ticket']=="process"){
@@ -731,7 +743,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         $consulta="SELECT SQL_CALC_FOUND_ROWS * FROM ticket LIMIT $inicio, $regpagina";
                                     }
                                 }else{
-                                    $consulta="SELECT SQL_CALC_FOUND_ROWS * FROM ticket WHERE estado_ticket='Pendiente' AND tipo = 'Hardware' AND ubicacion = '$ubicacion' LIMIT $inicio, $regpagina";
+                                    $consulta="SELECT SQL_CALC_FOUND_ROWS * FROM ticket WHERE estado_ticket='Pendiente' AND tipo = 'Hardware'/* AND ubicacion = '$ubicacion'*/ LIMIT $inicio, $regpagina";
                                 }
 
 
@@ -754,6 +766,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                                 <th class="text-center">Equipo</th>
                                                 <th class="text-center">Serie</th>
                                                 <th class="text-center">Estado</th>
+                                                <th class="text-center">Fecha Resuelto</th>
                                                 <th class="text-center">Tipo</th>
                                                 <th class="text-center">Ubicación</th>
                                                 <th class="text-center">Asesor Técnico</th>
@@ -780,6 +793,7 @@ if (isset($_POST['buscari']) && isset($_POST['search']) && isset($_POST['fecha1'
                                         <td class="text-center"><?php echo $row['equipo']; ?></td>
                                         <td class="text-center"><?php echo $row['serie']; ?></td>
                                         <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_solucion']; ?></td>
                                         <td class="text-center"><?php echo $row['tipo']; ?></td>
                                         <td class="text-center"><?php echo $row['ubicacion']; ?></td>
                                         <td class="text-center"><?php echo $row['observaciones']; ?></td>

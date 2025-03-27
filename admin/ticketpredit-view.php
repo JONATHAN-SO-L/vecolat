@@ -220,6 +220,67 @@ switch ($_POST['estado_ticket']) {
 }
 break;
 
+case 'Cancelado':
+    $cancelado = date('Y-m-d H:i:s');
+    setlocale(LC_TIME,"es_MX.UTF-8");
+    date_default_timezone_set ('America/Mexico_City');
+    $date_hecho_sgc = strftime('%d%b%y');
+    if(MysqlQuery::Actualizar("sop_preventivo", "estado_ticket='$estado_edit', observaciones='$solucion_edit', fecha_mant='$fecha_mant', requisiciones='$requisiciones', date_hecho_sgc='$date_hecho_sgc'", "id='$id_edit'")){
+
+     echo '
+     <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+     <h4 class="text-center">Mantenimiento Cancelado</h4>
+     <p class="text-center">
+     Se ha cancelado el mantenimiento '.$serie_ticket.'
+     </p><br>
+     <center><a href="./lib/Planta_pdf_prev.php?id='.$reg['serie'].'" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</a></center>
+     </div>
+     ';
+     if($radio_email=="option2"){
+
+        $from="Soporte Devinsa <tecnicos@veco.lat>";
+        $cabecera="From:".$from;
+        $asunto="Mantenimiento ".$serie_ticket." cancelado";
+        $email= $reg['email_cliente'];
+        $mensaje_mail=utf8_decode("Estimado usuario se ha cancelado el mantenimiento ".$serie_ticket." correspondiente a su equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n 
+        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n
+        Por favor, ES IMPORTANTE RESPONDA EL CORREO CON SU CONFORMIDAD DE LA SOLUCIÓN.");
+        $mensaje_mail=wordwrap($mensaje_mail, 70, "\r\n");
+
+        $email_root="a.lorenzana@devinsa.com";
+        $mensaje_root=utf8_decode("Estimado Gerente se ha cancelado el mantenimiento correspondiente al ticket #".$serie_ticket." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
+        Solicitud de mejora (Requisiciones): ".$requisiciones." \r\n \r\n
+        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
+        Por favor, NO responda a este mensaje, es un envio automatico");
+        $mensaje_root=wordwrap($mensaje_root, 70, "\r\n");
+
+        $email_jefe = "s.gonzalez@veco.com.mx";
+        $mensaje_jefe=utf8_decode("Se ha cancelado el mantenimiento correspondiente al ticket #".$serie_ticket." del equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
+        Solicitud de mejora (Requisiciones): ".$requisiciones." \r\n \r\n
+        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
+        Por favor, NO responda a este mensaje, es un envio automatico");
+        $mensaje_jefe=wordwrap($mensaje_jefe, 70, "\r\n");
+
+        mail($email, $asunto, $mensaje_mail, $cabecera);
+        mail($email_root, $asunto, $mensaje_root, $cabecera);
+        mail($email_jefe, $asunto, $mensaje_jefe, $cabecera);
+        mail($ing_soporte, $asunto, $mensaje_jefe, $cabecera);
+    }
+
+}else{
+ echo '
+ <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+ <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+ <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+ <p class="text-center">
+ No se pudo cerrar el mantenimiento, error en la conexión a la base de datos
+ </p>
+ </div>
+ '; 
+}
+break;
+
 default:
 echo '
 <div class="alert alert-info">
@@ -313,6 +374,7 @@ break;
                         <option value="Reprogramar">Reprogramar</option>
                         <option value="Inicio">Inicio</option>
                         <option value="Resuelto">Resuelto</option>
+                        <option value="Cancelado">Cancelado</option>
                     </select>
                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                 </div>

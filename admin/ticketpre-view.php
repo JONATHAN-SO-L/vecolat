@@ -385,7 +385,7 @@ if(isset($_POST['id_del'])){
                                     ?>
                                     <td class="text-center"><?php echo $fecha1 ?></td>
                                     <td class="text-center"><?php echo $row['fecha']; ?></td>
-                                    <td class="text-center"><?php echo $row['nombre_usuario']; ?></td>
+                                    <td class="text-center"><?php echo $row['usuario']; ?></td>
                                     <td class="text-center"><?php echo $row['equipo']; ?></td>
                                     <td class="text-center"><?php echo $row['serie']; ?></td>
                                     <td class="text-center"><?php echo $row['estado_ticket']; ?></td>
