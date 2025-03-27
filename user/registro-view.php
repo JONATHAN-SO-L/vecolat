@@ -182,6 +182,7 @@ display:none;
                 <option value="">Selecciona una Ubicación</option>
                 <option value="Oficinas">Oficinas</option>
                 <option value="Planta">Planta</option>
+                <option value="Externo">Externo</option>
               </select>
             </div>
             <div class="form-group">

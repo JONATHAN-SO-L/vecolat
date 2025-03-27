@@ -1,19 +1,9 @@
 <?php
-/*
- * @author: Meraz Prudencio Griselda  
- * ghriz2811@gmail.com
- * @version: 10/2020 v1
- */
-?>
-<?php
-//require ('./inc/timezone.php');
-if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="user" && $_SESSION['nombre_completo'] != 'Yaniv Melendez'){ ?>
-<?php
 //date_default_timezone_set('America/Mexico_City');
- $hora = strftime("%H:%M %p");
+ /*$hora = strftime("%H:%M %p");
  $limite = "18:30 pm";
  #empieza anuncio de hora 
- if( $limite > $hora ){
+ if( $limite > $hora ){*/
  #termina anuncio de hora 
 ?>
 
@@ -90,17 +80,21 @@ display:none;
                           </div>
                         </div>
 						
-			 <fieldset>
+
             </div>
-            <div class="col-sm-4 text-center hidden-xs" style=" margin-left: 100px;">
+            <div class="col-sm-4 text-center" style=" margin-left: 100px;">
       <center><a href="./soporte.php?view=checador1"><img src="img/entrada1.png" class="img-responsive" alt="Image"></center>
     </div>
     
-    <div class="col-sm-4 text-center hidden-xs" style=" margin-left: 60px;"> 
+    <div class="col-sm-4 text-center" style=" margin-left: 60px;"> 
       <center><a href="soporte.php?view=checador2"><img src="img/salida1.png" class="img-responsive" alt="Image"/></center>
     </div>
+
+    <div class="col-sm-4 text-center" style=" margin-left: 100px;"> 
+      <center><a href="./user/permisos.php"><img src="img/permisos.jpg" class="img-responsive" alt="permisos"/></center>
+    </div>
              
-             <div class="col-sm-4 text-center hidden-xs" style=" margin-left: 250px;"> 
+    <div class="col-sm-4 text-center" style=" margin-left: 60px;"> 
       <center><a href="./soporte.php?view=Ccomida"><img src="img/comida.png" class="img-responsive" alt="Image"/></center>
     </div>
     
@@ -109,7 +103,7 @@ display:none;
           </form>
         </div>
       </div>
-    <div class="col-sm-4 text-center hidden-xs">
+    <div class="col-sm-4 text-center">
       <img src="img/horarios.png" class="img-responsive" alt="Image">
       <h2 class="text-primary">¡Gracias por Checar!</h2>
     </div>
@@ -118,7 +112,7 @@ display:none;
 
 <?php
 #empieza anuncio de hora 
-}else{
+/*}else{
 ?>
                 <div class="container">
                     <div class="row">
@@ -134,26 +128,8 @@ display:none;
                     </div>
                 </div>
         <?php
-}
-#termina anuncio de hora
-}else{
-?>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <img src="./img/Stop.png" alt="Image" class="img-responsive animated slideInDown"/><br>
-                    <img src="./img/SadTux.png" alt="Image" class="img-responsive"/>
-                    
-                </div>
-                <div class="col-sm-7 animated flip">
-                    <h1 class="text-danger">Lo sentimos esta página es solamente para administradores del Sistema</h1>
-                    <h3 class="text-info text-center">Inicia sesión como administrador para poder acceder</h3>
-                </div>
-                <div class="col-sm-1">&nbsp;</div>
-            </div>
-        </div>
-<?php
-}
+}*/
+
 ?>
 <script type="text/javascript">
   $(document).ready(function(){

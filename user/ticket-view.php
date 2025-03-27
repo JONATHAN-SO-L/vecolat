@@ -28,7 +28,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				//mail($email_oficinas, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_oficinas, $asunto_admin, $mensaje_admin, $cabecera);
 
 			} elseif ($tipo_falla = 'Software') {
 				$codigo = ""; 
@@ -42,7 +42,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				//mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
 			}
 			break;
 			
@@ -59,7 +59,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				//mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
 
 			} elseif ($tipo_falla = 'Software') {
 				$codigo = ""; 
@@ -73,9 +73,40 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				//mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
 			}
 			break;
+
+			case 'Planta':
+				if ($tipo_falla = 'Externo') {
+					$codigo = ""; 
+					$longitud = 2; 
+					for ($i=1; $i<=$longitud; $i++){ 
+						$numero = rand(0,100); 
+						$codigo .= $numero; 
+					} 
+					$num=Mysql::consulta("SELECT * FROM ticket WHERE serie LIKE '%VEC000%'");
+					$numero_filas = mysqli_num_rows($num);
+					$numero_filas_total=$numero_filas+1;
+					$id_ticket="VEC000".$numero_filas_total;
+	
+					mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
+	
+				} elseif ($tipo_falla = 'Software') {
+					$codigo = ""; 
+					$longitud = 2; 
+					for ($i=1; $i<=$longitud; $i++){ 
+						$numero = rand(0,100); 
+						$codigo .= $numero; 
+					} 
+					$num=Mysql::consulta("SELECT * FROM ticket WHERE serie LIKE '%VEC000%'");
+					$numero_filas = mysqli_num_rows($num);
+					$numero_filas_total=$numero_filas+1;
+					$id_ticket="VEC000".$numero_filas_total;
+	
+					mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				}
+				break;
 		}
 		
 		

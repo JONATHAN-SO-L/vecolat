@@ -34,12 +34,56 @@
 	 <li data-target="#carousel-example-generic" data-slide-to="14"></li>
 	 <li data-target="#carousel-example-generic" data-slide-to="15"></li>
 	 <li data-target="#carousel-example-generic" data-slide-to="16"></li>
+	 <li data-target="#carousel-example-generic" data-slide-to="17"></li>
+	 <li data-target="#carousel-example-generic" data-slide-to="18"></li>
+	 <li data-target="#carousel-example-generic" data-slide-to="19"></li>
+	 <li data-target="#carousel-example-generic" data-slide-to="20"></li>
 
   </ol>
 	 <div class="carousel-inner">
 
-	   <!-- Flyer unidades externas -->
-	<div class="item active">
+ 	    <!-- Infografía Cambio Climatico -->
+		 <div class="item active">
+		<center><img src="img/cambio_climatico.png" style="height: 60%; width: 60%;" alt="Cambio climático" title="Cambio climático"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
+	 	    <!-- Infografía Misión -->
+	<div class="item">
+		<center><img src="img/mision.gif" style="height: 45%; width: 45%;" alt="Infografía de Misión" title="Infografía de Misión"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
+	 	    <!-- Infografía Visión -->
+	<div class="item">
+		<center><img src="img/vision.gif" style="height: 45%; width: 45%;" alt="Infografía de Visión" title="Infografía de Visión"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
+	 	    <!-- Infografía Política -->
+	<div class="item">
+		<center><img src="img/politica.gif" style="height: 45%; width: 45%;" alt="Infografía de Política" title="Infografía de Política"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
+	    <!-- Infografía Valores -->
+	<div class="item">
+		<center><img src="img/valores.gif" style="height: 45%; width: 45%;" alt="Infografía de Valores" title="Infografía de Valores"></center>
+		<div class="carousel-caption">
+
+		</div>
+	</div>
+
+	   <!-- Flyer mvps -->
+	<div class="item">
 		<center><img src="img/mvp.png" style="height: 85%; width: 85%;" alt="Misión, Visión y Política" title="Misión, Visión y Política"></center>
 		<div class="carousel-caption">
 
@@ -192,7 +236,7 @@
 <script>
 	 $(document).ready(function(){
 		  $("#carousel-example-generic").carousel({
-				interval: 10000,
+				interval: 15000,
 		  });
 	 });
 </script>
