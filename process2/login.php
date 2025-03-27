@@ -42,6 +42,7 @@
                 $_SESSION['clave']=$clave;
                 //$_SESSION['id']=$reg['id_usuario'];
                 $_SESSION['tipo']="user";
+                $_SESSION['tipo_checador'] = $reg['tipo_chk'];
                 
 			header('Location: ./soporte.php?view=soporte');
             }else{
@@ -69,8 +70,9 @@
                 $_SESSION['ar']=$reg['area'];
                 $_SESSION['ubi']=$reg['ubicacion'];
 				$_SESSION['tel']=$reg['telefono'];
-                $_SESSION['clave']=$clave;
+                $_SESSION['clave']=$clave; 
                 $_SESSION['tipo']="RH";
+                $_SESSION['tipo_checador'] = $reg['tipo_chk'];
                 
 			header('Location: ./soporte.php?view=soporte');
             }else{
