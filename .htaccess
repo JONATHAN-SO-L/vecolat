@@ -1,0 +1,26 @@
+### Rewrite Rules Added by CyberPanel Rewrite Rule Generator
+
+RewriteEngine On
+RewriteCond %{HTTPS}  !=on
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+
+### End CyberPanel Generated Rules.
+
+### Rewrite Rules Added by CyberPanel Rewrite Rule Generator
+
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www.(.*)$
+RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+
+### End CyberPanel Generated Rules.
+
+### Rewrite Rules Added by CyberPanel Rewrite Rule Generator
+
+RewriteEngine On
+#RewriteCond %{SERVER_PORT} 80 
+#RewriteCond %{SERVER_PORT} 8090
+#RewriteCond %{SERVER_PORT} 3000
+RewriteCond %{HTTPS}  !=on
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+
+### End CyberPanel Generated Rules.
