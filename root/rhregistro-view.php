@@ -48,14 +48,15 @@
 			$telefono_reg="";
 		}
 			
-    $cabecera="From: Soporte Devinsa <sistemas@veco.lat>";
+    $cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
     
-			  $mensaje="Estimado usuario ha sido dado de alta en el portal Devinsa,\r\n Link: https://veco.lat/soporte.php 
-			  \r\n Sus credenciales son: \r\n \r\n Correo: ".$email_reg." \r\n  Contraseña:  ".$clave_reg2." \r\n En cualquier momento puede cambiar su contraseña. \r\n \r\n
-          Saludos Cordiales\r\n Área de sistemas \r\n sistemas@veco.mx \r\n \r\n 
-Por favor, NO responda a este mensaje, es un envío automático";
+			  $mensaje="Estimado usuario, has sido dado de alta en el Checador Virtual.\r\n Link: https://veco.lat/soporte.php 
+			  \r\n Tus credenciales son: \r\n \r\n Correo: ".$email_reg." \r\n  Contraseña:  ".$clave_reg2." \r\n En cualquier momento puedes cambiar su contraseña. \r\n \r\n
+        Recuerda que en el apartado '¿Cómo iniciarás sesión?' debes seleccionar la opción de 'RH' para poder visualizar la información del Checador Virtual.  \r\n \r\n
+        Saludos Cordiales\r\n Área de Sistemas \r\n tecnicos@veco.lat \r\n \r\n 
+Por favor, NO respondas a este mensaje, es un envío automático";
           $mensaje=wordwrap($mensaje, 70, "\r\n");
-		  $asunto_admin= "Acceso a Portal de Soporte";
+		  $asunto_admin= "Acceso a Checador Virtual";
          
         if(MysqlQuery::Guardar("usuario_rh", "nombre_usuario, clave, nombre_comp, email_usuario, area, ubicacion, telefono", "'$nombre_reg', '$clave_reg', '$user_nomb',  '$email_reg', '$user_area','$user_ubicacion', '$telefono_reg'")){
 
