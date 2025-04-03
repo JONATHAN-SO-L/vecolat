@@ -1,2 +1,3 @@
-# vecolat
-Repository of whole site of veco.lat
+Inicio del desarrollo: 07ABR25
+
+Estado del proyecto: Alpha (Desarrollo)
