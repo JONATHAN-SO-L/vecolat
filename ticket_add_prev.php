@@ -88,27 +88,59 @@ if ($ubicacion == 'Planta') {
 		}
 		
 		//$mensaje_mail= $_POST['mensaje_mail'];
-          $fecha_mant="";
-		  $requisiciones = NULL;
-          $asunto_ticket= "Aviso de Mantenimiento Preventivo ".$id_ticket."";
-          $observaciones= "";
-          $estado_ticket="Programado";
-          $cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
-          $mantenimiento2 = $mantenimiento;
-          $mensaje_mail=utf8_decode("Estimado usuario, se le informa que en la siguiente fecha: ".$fecha." se realizará un mantenimiento a su equipo: ".$equipo.", para que tenga oportunidad de agendarse. \r\n
-		  Su ID de mantenimiento preventivo es: ".$id_ticket."\r\n\r\n Motivo de Mantenimiento: ".$mantenimiento2." \r\n\r\n El Ingeniero(a) de Soporte asignado será:  ".$solucion_admin."\r\n Saludos cordiales. \r\n Área de Sistemas \r\n soporte_tecnico@veco.lat  \r\n  \r\n Por favor, responda a este mensaje CONFIRMANDO o INDICANDO la nueva fecha de REPROGRAMACIÓN.");
-          $mensaje_mail=wordwrap($mensaje_mail, 70, "\r\n");
+		$fecha_mant="";
+		$requisiciones = NULL;
+		$observaciones= "";
+		$estado_ticket="Programado";
+		$date_programada_sgc = date('jMy');
+		$mantenimiento2 = $mantenimiento;
+
+		switch ($solucion_admin) {
+			case 'a.lorenzana@devinsa.com':
+				$ing_soporte = 'Marco Antonio Lorenzana Sotelo';
+			break;
+
+			case 's.gonzalez@veco.com.mx':
+				$ing_soporte = 'Santos Gonzalez Espinoza';
+			break;
+
+			case 'e.hernandez@veco.mx':
+				$ing_soporte = 'Elizabeth Hernandez Gonzalez';
+			break;
+
+			case 'j.sanchez@veco.mx':
+				$ing_soporte = 'Jonathan Jaziel Sanchez Ortiz';
+			break;
+		}
+
+		/************************************
+		CORREOS SALIENTES NUEVO MANTENIMIENTO
+		************************************/
+		// Remitentes y asuntos
+		$cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
+		$email= "sistemas@veco.mx, ".$solucion_admin;
+		$asunto_ticket= "Aviso de Mantenimiento Preventivo: ".$id_ticket."";
+		$website = 'https://veco.lat/soporte.php';
+
+		// Usuario
+		$mensaje_mail=utf8_decode("Estimado(a) ".$usuario.", se le informa que en la siguiente fecha: ".$fecha." se realizará el mantenimiento a su equipo: ".$equipo.", para que tenga oportunidad de agendarlo.\r\n
+		Su ID de mantenimiento preventivo es: ".$id_ticket."\r\n
+		El Ingeniero(a) de Soporte asignado será:  ".$ing_soporte."\r\n\r\n
+		Por favor, responda a este mensaje CONFIRMANDO o en caso contrario INDICANDO la nueva fecha de REPROGRAMACIÓN. (Recuerde que solo es posible una reprogramación)\r\n\r\n
+		Saludos cordiales.\r\n
+		Área de Sistemas\r\n
+		".$website);
+
+		// Área de Sistemas
+		$admin_mail=utf8_decode("Estimado Ingeniero(a) de Soporte: ".$ing_soporte.", se le ha asignado un nuevo mantenimiento en la fecha ".$fecha.".\r\n
+		El usuario agendado es: ".$usuario."\r\n
+		El equipo para mantenimiento es: ".$equipo."\r\n
+		El ID ticket preventivo es: ".$id_ticket."\r\n
+		Actividades a realizar:\r\n".$mantenimiento2."\r\n\r\n
+		Saludos cordiales.\r\n
+		Área de Sistemas.\r\n
+		Por favor, NO responda a este mensaje, es un envío automático.");
           
-           $admin_mail=utf8_decode("Estimado Ingeniero(a) de Soporte, se le ha asignado un nuevo mantenimiento en la fecha ".$fecha.".\r\n\r\nEl usuario agendado es: ".$usuario."\r\nEl equipo para mantenimiento es: ".$equipo."\r\nEl ID ticket preventivo es: ".$id_ticket."\r\n\r\nMotivo de Mantenimiento: \r\n".$mantenimiento2." \r\n \r\n
-		   || Recuerda tomar evidencia fotográfica del proceso de mantenimiento para fines documentales de nuestra área. ||\r\n\r\nSaludos cordiales. \r\n Área de Sistemas. \r\n soporte_tecnico@veco.lat  \r\n  \r\n Por favor, NO responda a este mensaje, es un envío automático.");
-          $admin_mail=wordwrap($admin_mail, 70, "\r\n");
-          
-           $root_mail=utf8_decode("Estimado Gerente se ha levantado un nuevo Mantenimiento para la fecha: ".$fecha." !  \r\n\r\n 
-		   El usuario agendado es: ".$usuario."\r\nEl equipo asignado es: ".$equipo."\r\nEl ID ticket preventivo es: ".$id_ticket."\r\n\r\nMotivo de Mantenimiento: ".$mantenimiento2." \r\n El Ingeniero(a) de Soporte será:  ".$solucion_admin."\r\n  Saludos cordiales. \r\n Área de Sistemas. \r\n soporte_tecnico@veco.lat  \r\n  \r\n Por favor, NO responda a este mensaje, es un envío automático.");
-          $root_mail=wordwrap($root_mail, 70, "\r\n");
-          
-		  $date_programada_sgc = date('jMy');
-          $email= "a.lorenzana@devinsa.com";
         	$con=mysqli_connect($host,$user,$pw,$db);
 			if(mysqli_query($con,(
 			    "INSERT INTO sop_preventivo(fecha_lev, fecha, usuario, email_cliente, nombre_usuario, ubicacion, equipo, serie, estado_ticket, asunto, mantenimiento,solucion_admin, observaciones, fecha_mant, anio, requisiciones, date_programada_sgc)
@@ -120,9 +152,8 @@ if ($ubicacion == 'Planta') {
           "'$fecha', '$email_ticket','$usuario_id', '$equipo', '$tipo','$id_ticket','$estado_ticket',$asunto_ticket', $mantenimiento,'$solucion_admin', '$observaciones'")){
 */
             //----------  Enviar correo con los datos del ticket ----------
-            mail($email_ticket, $asunto_ticket, $mensaje_mail, $cabecera);
-            mail($solucion_admin, $asunto_ticket, $admin_mail, $cabecera);
-            mail($email, $asunto_ticket, $root_mail, $cabecera);
+            mail($email_ticket, $asunto_ticket, $mensaje_mail, $cabecera); // Usuario
+			mail($email, $asunto_ticket, $admin_mail, $cabecera); // Sistemas
             
             
             echo '<script language="javascript">
