@@ -42,7 +42,7 @@ footer {
                 <img src="./img/write_email.png" alt="Image" class="img-responsive animated flipInY">
             </div>
             <div class="col-sm-10">
-            <p class="lead text-info">Bienvenido <strong><?php echo $_SESSION['nombre_completo'];?></strong>, en esta página se muestran todos tus tickets levantados en el Sistema.</p>
+            <p class="lead text-info">Bienvenido <strong><?php echo $_SESSION['nombre_completo'];?></strong>, en esta página se muestran todos tus tickets registrados en el Sistema.</p>
             </div>
         </div>
         </div>
@@ -69,29 +69,35 @@ footer {
 	$db = mysqli_select_db( $conexion, $basededatos ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
      $email= $_SESSION['email'];
 
-	$consulta = "SELECT * from ticket where email_cliente ='$email' ";
+	$consulta = "SELECT * from ticket where email_cliente ='$email' ORDER BY serie DESC";
 	$resultado = mysqli_query( $conexion, $consulta) or die ( "Algo ha ido mal en la consulta a la base de datos");
 
-ECHO "<table class='table table-hover table-striped table-bordered'><th>Fecha</th><th>Hora</th><th>Número de Serie</th><th>Usuario</th><th>Estado</th><th>Tipo de Falla</th><th>Asunto Reportado</th><th>Asesor Técnico</th>";
+ECHO "<table class='table table-hover table-striped table-bordered'>
+<th><center>Ver</center></th>
+<th><center>Fecha de Reporte</center></th>
+<th><center>Serie / Folio</center></th>
+<th><center>Usuario</center></th>
+<th><center>Estado</center></th>
+<th><center>Tipo de Falla</center></th>
+<th><center>Falla Reportada</center></th>
+<th><center>Fecha de Solución</center></th>
+<th><center>Ingeniero de Soporte</center></th>";
+
 while ($fila = mysqli_fetch_array( $resultado )){
 	echo "<tr>";
-      ?>
-		<!--td class="text-center">
-				<a href="./lib/pdf.php?id=<?php echo $fila['id']; ?>" class="btn btn-info btn-sm btn-warning" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
-        </td-->
-        <?php
-        ECHO " <TD>".utf8_decode($fila["fecha"])."</TD>";
-        ECHO " <TD>".utf8_decode($fila["hora"])."</TD>";
-        ECHO " <TD>".utf8_decode($fila["serie"])."</TD>";
-		ECHO " <TD>".utf8_decode($fila["nombre_usuario"])."</TD>";
-		ECHO " <TD>".utf8_decode($fila["estado_ticket"])."</TD>";
-		ECHO " <TD>".utf8_decode($fila["tipo"])."</TD>";
-		ECHO " <TD>".utf8_decode($fila["asunto"])."</TD>";
-    ECHO " <TD>".utf8_decode($fila["observaciones"])."</TD>";
+  echo '<td><center><a href="./lib/Planta_pdf.php?id='.$fila['id'].'" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a></center></td>';
+  echo " <TD><center>".utf8_decode($fila["fecha"])."</center></TD>";
+  echo " <TD><center>".utf8_decode($fila["serie"])."</center></TD>";
+  echo " <TD><center>".utf8_decode($fila["nombre_usuario"])."</center></TD>";
+  echo " <TD><center>".utf8_decode($fila["estado_ticket"])."</center></TD>";
+  echo " <TD><center>".utf8_decode($fila["tipo"])."</center></TD>";
+  echo " <TD><center>".utf8_decode($fila["asunto"])."</center></TD>";
+  echo " <TD><center>".utf8_decode($fila["fecha_solucion"])."</center></TD>";
+  echo " <TD><center>".utf8_decode($fila["observaciones"])."</center></TD>";
      
   echo "</tr>";
 }
-ECHO "</table>";
+echo "</table>";
 
 
 		  ?>
