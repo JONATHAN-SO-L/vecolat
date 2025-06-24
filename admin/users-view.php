@@ -1,11 +1,5 @@
 <?php
-/*
- * @author: Meraz Prudencio Griselda  
- * ghriz2811@gmail.com
- * @version: 08/2019 v1
- */
- ?>
-<?php if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){ ?>    
+if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){ ?>    
         <?php 
             if(isset($_POST['id_del'])){
                 $id_user=MysqlQuery::RequestPost('id_del');
@@ -81,7 +75,7 @@ footer {
                 <img src="./img/card_identy.png" alt="Image" class="img-responsive animated flipInY">
             </div>
             <div class="col-sm-10">
-              <p class="lead text-info">Bienvenido administrador, en esta página se muestran todos los usuarios registrados en el Sistema.</p>
+              <p class="lead text-info">Bienvenido <strong><?php echo $_SESSION['nombre_completo']; ?></strong>, en esta página se muestran todos los usuarios registrados en el Sistema.</p>
             </div>
           </div>
         </div>
@@ -92,9 +86,9 @@ footer {
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <ul class="nav nav-pills nav-justified">
-                            <li><a href="./admin.php?view=users"><i class="fa fa-users"></i>&nbsp;&nbsp;Usuarios&nbsp;&nbsp;<span class="badge"><?php echo $num_total_user; ?></span></a></li>
+                            <li><a href="./admin.php?view=users"><i class="fa fa-users"></i>&nbsp;&nbsp;Equipos&nbsp;&nbsp;<span class="badge"><?php echo $num_total_equipo; ?></span></a></li>
                             <li><a href="./admin.php?view=admin"><i class="fa fa-male"></i>&nbsp;&nbsp;Soporte&nbsp;&nbsp;<span class="badge"><?php echo $num_total_admin; ?></span></a></li>
-                            <li><a href="#"><i class="fa fa-male"></i>&nbsp;&nbsp;Equipos&nbsp;&nbsp;<span class="badge"><?php echo $num_total_equipo; ?></span></a></li>
+                            <li><a href="#"><i class="fa fa-male"></i>&nbsp;&nbsp;Usuarios&nbsp;&nbsp;<span class="badge"><?php echo $num_total_user; ?></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -102,7 +96,7 @@ footer {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                            <?php 
+                            <?php
                                 $mysqli = mysqli_connect(SERVER, USER, PASS, BD);
                                 mysqli_set_charset($mysqli, "utf8");
 
@@ -110,7 +104,7 @@ footer {
                                 $regpagina = 15;
                                 $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-                                $selusers=mysqli_query($mysqli,"SELECT SQL_CALC_FOUND_ROWS * FROM usuario_sop LIMIT $inicio, $regpagina");
+                                $selusers=mysqli_query($mysqli,"SELECT SQL_CALC_FOUND_ROWS * FROM equipo_usuario ORDER BY area ASC LIMIT $inicio, $regpagina");
 
                                 $totalregistros = mysqli_query($mysqli,"SELECT FOUND_ROWS()");
                                 $totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
@@ -122,12 +116,11 @@ footer {
                                 <thead>
                                     <tr>
                                         
-                                        <th class="text-center">Id</th>
-                                        <th class="text-center">Nombre de usuario</th>
-                                        <th class="text-center">Nombre completo </th>
-										<th class="text-center">Email</th>
-										<th class="text-center">Area</th>
-										<th class="text-center">Telefono</th>
+                                        <th class="text-center">Acción</th>
+                                        <th class="text-center">Nombre Completo</th>
+                                        <th class="text-center">Área</th>
+										<th class="text-center">Ubicación</th>
+										<th class="text-center">Serie Calidad</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -136,18 +129,11 @@ footer {
                                         while ($row=mysqli_fetch_array($selusers, MYSQLI_ASSOC)): 
                                     ?>
                                     <tr>
-									<!--td class="text-center">
-                                            <form action="" method="POST" style="display: inline-block;">
-                                                <input type="hidden" name="id_del" value="<?php echo $row['id_usuario']; ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </form>
-                                        </td-->
-                                        <td class="text-center"><?php echo $ct; ?></td>
-                                        <td class="text-center"><?php echo $row['nombre_usuario']; ?></td>
+                                        <td><center><a href="./files/qr_generador.php?<?php echo $row['id_eq_us']; ?>" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a></center></td>
                                         <td class="text-center"><?php echo $row['nombre_comp']; ?></td>
-										<td class="text-center"><?php echo $row['email_usuario']; ?></td>
-										<td class="text-center"><?php echo $row['area']; ?></td>
-										<td class="text-center"><?php echo $row['telefono']; ?></td>
+                                        <td class="text-center"><?php echo $row['area']; ?></td>
+										<td class="text-center"><?php echo $row['ubicacion']; ?></td>
+										<td class="text-center"><?php echo $row['num_serie']; ?></td>
                                     </tr>
                                     <?php
                                         $ct++;
