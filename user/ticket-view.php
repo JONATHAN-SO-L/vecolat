@@ -28,7 +28,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				mail($email_oficinas, $asunto_admin, $mensaje_admin, $cabecera);
+				#mail($email_oficinas, $asunto_admin, $mensaje_admin, $cabecera);
 
 			} elseif ($tipo_falla = 'Software') {
 				$codigo = ""; 
@@ -42,7 +42,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				#mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
 			}
 			break;
 			
@@ -59,7 +59,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
+				#mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
 
 			} elseif ($tipo_falla = 'Software') {
 				$codigo = ""; 
@@ -73,7 +73,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 				$numero_filas_total=$numero_filas+1;
 				$id_ticket="VEC000".$numero_filas_total;
 
-				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				#mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
 			}
 			break;
 
@@ -90,7 +90,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 					$numero_filas_total=$numero_filas+1;
 					$id_ticket="VEC000".$numero_filas_total;
 	
-					mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
+					#mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
 	
 				} elseif ($tipo_falla = 'Software') {
 					$codigo = ""; 
@@ -104,7 +104,7 @@ if( $_SESSION['nombre']!="" && $_SESSION['clave']!="" && $_SESSION['tipo']=="use
 					$numero_filas_total=$numero_filas+1;
 					$id_ticket="VEC000".$numero_filas_total;
 	
-					mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+					#mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
 				}
 				break;
 		}
@@ -195,43 +195,44 @@ $admin_solucion="";
 $estatus="";
 $observaciones="";
 
+/*****************************
+CORREOS SALIENTES NUEVO TICKET
+*****************************/
+// Remitentes y asuntos del correo
 $cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
 
-		$mensaje_mail=utf8_decode("Estimado usuario,  \r\n 
-		Para seguimiento se ha generado el ticket #  ".$id_ticket."\r\n  
-		¡Gracias por reportarnos su problema! \r\n  \r\n  \r\n 
-		Saludos Cordiales\r\n Soporte Devinsa \r\n soporte_tecnico@veco.lat \r\n \r\n 
-		Por favor, responda a este mensaje de ENTERADO \r\n");
-		
-		$mensaje_gere=utf8_decode("Estimado Gerente,  \r\n 
-		El usuario ".$_SESSION['nombre_completo']." ha generado un nuevo ticket con el ID #".$id_ticket." en ".$ubicacion.".\r\n
-		El asunto es: ".$asunto_ticket."\r\n
-		El tipo de falla es: ".$tipo."\r\n
-		Saludos Cordiales\r\n Soporte Devinsa \r\n soporte_tecnico@veco.lat \r\n \r\n 
-		Por favor, responda a este mensaje de ENTERADO \r\n");
-		
-		$mensaje_mail=wordwrap($mensaje_mail, 70, "\r\n");
-		$email= $email_ticket;
-		$email_gere= "a.lorenzana@devinsa.com";
-		$mensaje_admin=utf8_decode("Estimado Soporte Técnico, el usuario ".$_SESSION['nombre_completo']." ha levantado el ticket: ".$id_ticket.".\r\n
-		Puede comunicarse con el usuario para resolver el problema. \r\n \r\n
-		Saludos Cordiales\r\n Área de Sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
-		Por favor, responda a este mensaje de ENTERADO");
-		$mensaje_admin=wordwrap($mensaje_admin, 70, "\r\n");
+#$email_pruebas= "j.sanchez@veco.mx";
+$email_jefes= "sistemas@veco.mx";
+$email_oficinas = "hw_oficinas@veco.lat, ".$email_jefes."";
+$email_planta= "hw_planta@veco.lat, ".$email_jefes."";
+$email_software = "soporte_tecnico@veco.lat, ".$email_jefes."";
 
-		//$email_pruebas= "j.sanchez@veco.mx";
-		$email_oficinas = "hw_oficinas@veco.lat";
-		$email_planta= "hw_planta@veco.lat";
-		$email_software = "soporte_tecnico@veco.lat";
+$asunto = "Nuevo ticket reportado ".$id_ticket.": ".utf8_decode($asunto_ticket);
 
-		$asunto_admin= "Nuevo ticket reportado ".$id_ticket."";
-		$asunto_gere= "Nuevo ticket reportado ".$id_ticket."";
-		$asunto_usuario = "Ticket ".$id_ticket.": ".utf8_decode($asunto_ticket);
+$website = 'https://veco.lat/soporte.php';
 
-		$fecha_hora= date('Y-m-d H:i:s');
-		setlocale(LC_TIME,"es_MX.UTF-8");
-		date_default_timezone_set ('America/Mexico_City');
-		$datetime_inicio_sgc = strftime('%d%b%y');
+// Usuario
+$email= $email_ticket;
+$mensaje_mail=utf8_decode("Estimado(a) ".$_SESSION['nombre_completo'].",\r\n 
+Para seguimiento de la falla reportada se ha generado el ticket #".$id_ticket."\r\n
+Saludos Cordiales\r\n
+Área de Sistemas\r\n
+Por favor, NO responda a este mensaje, es un envió automático.\r\n
+".$website);
+
+// Área de Sistemas
+$mensaje_admin=utf8_decode("Estimada Área de Sistemas.\r\n
+El usuario ".$_SESSION['nombre_completo']." ha generado un nuevo ticket con el ID: ".$id_ticket." en ".$ubicacion.".\r\n
+El asunto es: ".$asunto_ticket."\r\n
+El tipo de falla es: ".$tipo."\r\n
+Saludos Cordiales\r\n
+Área de Sistemas.\r\n
+No responder correo.");
+
+	$fecha_hora= date('Y-m-d H:i:s');
+	setlocale(LC_TIME,"es_MX.UTF-8");
+	date_default_timezone_set ('America/Mexico_City');
+	$datetime_inicio_sgc = strftime('%d%b%y');
 
 		$con=mysqli_connect($host,$user,$pw,$db);
 
@@ -301,23 +302,23 @@ $cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
 
 		/////////////////////////////////////////////////////////////////////////////////////
 		/*----------  Enviar correo con los datos del ticket----------*/
-		mail($email, $asunto_usuario, $mensaje_mail, $cabecera);
-		mail($email_gere, $asunto_gere, $mensaje_gere, $cabecera);
+		mail($email, $asunto, $mensaje_mail, $cabecera);
+		#mail($email_jefes, $asunto, $mensaje_gere, $cabecera);
 	}
 
 	switch ($ubicacion) {
 		case 'Oficinas':
 			switch ($tipo_falla) {
 				case 'Hardware':
-				mail($email_oficinas, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_oficinas, $asunto, $mensaje_admin, $cabecera);
 				break;
 
 				case 'Software':
-				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_software, $asunto, $mensaje_admin, $cabecera);
 				break;
 				
 				default:
-				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_software, $asunto, $mensaje_admin, $cabecera);
 				break;
 			}
 		break;
@@ -325,15 +326,15 @@ $cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
 		case 'Planta':
 			switch ($tipo_falla) {
 				case 'Hardware':
-				mail($email_planta, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_planta, $asunto, $mensaje_admin, $cabecera);
 				break;
 	
 				case 'Software':
-				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_software, $asunto, $mensaje_admin, $cabecera);
 				break;
 					
 				default:
-				mail($email_software, $asunto_admin, $mensaje_admin, $cabecera);
+				mail($email_software, $asunto, $mensaje_admin, $cabecera);
 				break;
 			}
 		break;
