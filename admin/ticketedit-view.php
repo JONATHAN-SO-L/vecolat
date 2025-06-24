@@ -76,35 +76,50 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
 
     $con=mysqli_connect($host,$user,$pw,$db);
 
-    $from="Soporte Devinsa <tecnicos@veco.lat>";
-    $cabecera="From:".$from;
-    $mensaje_mail=utf8_decode("Estimado usuario, se ha solucionado su ticket ".$serie_ticket." \r\n la solución es la siguiente : ".$solucion_edit."\r\n\r\n
-      Recuerde firmar el ticket solamente con su firma legal y fecha.\r\n\r\n
-      Saludos Cordiales.\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
-      Por favor, Es importante responda el correo con su conformidad de la solución.");
-    $mensaje_mail=wordwrap($mensaje_mail, 70, "\r\n");
+    /******************************
+    CORREOS SALIENTES ESTADO TICKET
+    ******************************/
+    // Remitentes y asuntos
+    #$from="Soporte Devinsa <tecnicos@veco.lat>";
+    $cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
+    $email_jefes = 'sistemas@veco.mx';
+    $email_all = $email.', '.$email_jefes;
 
-    $status_mail=utf8_decode("Estimado usuario, se ha revisado su ticket ".$serie_ticket." \r\n el Estatus es el siguiente : ".$estatus."\r\n \r\n 
-      Saludos Cordiales\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
-      Por favor, puede responder a este mensaje de seguimiento como ENTERADO.");
-    $status_mail=wordwrap($status_mail, 70, "\r\n");
+    $asunto_status = "Estatus de Ticket / Seguimiento ".$serie_ticket." Asunto: ".utf8_decode($asunto)."";
+    $asunto_resuelto = "Ticket ".$serie_ticket.": ".utf8_decode($asunto)." -> Resuelto";
+    $asunto_cancel = "Ticket ".$serie_ticket.": ".utf8_decode($asunto)." -> CANCELADO";
 
-    $email_root=" a.lorenzana@devinsa.com";
-    $asunto_root="Ticket ".$serie_ticket.": ".utf8_decode($asunto)." -> Resuelto";
-    $mensaje_root=utf8_decode("Estimado Gerente \r\n El ticket ".$serie_ticket."  ha sido resuelto por  ".$solucion_usuario."\r\n \r\n
-      Saludos Cordiales.\r\n Área de sistemas \r\n sistemas@veco.lat \r\n \r\n 
-      Por favor responda a este mensaje");
+    $website = 'https://veco.lat/soporte.php';
 
-    $email_jefe="s.gonzalez@veco.com.mx";
-    $mensaje_jefe=utf8_decode("El ticket ".$serie_ticket.": ".utf8_decode($asunto)."  ha sido resuelto por  ".$solucion_usuario."\r\n \r\n
-      Saludos Cordiales.\r\n Área de sistemas \r\n sistemas@veco.lat \r\n \r\n 
-      Por favor responda a este mensaje");
+    // Estatus / Seguimiento
+    $status_mail=utf8_decode("Estimado(a) ".$_SESSION['nombre_completo'].", se ha revisado su ticket ".$serie_ticket.".\r\n
+    Estado: ".$_POST['estado_ticket']."\r\n
+    Seguimiento: ".$estatus."\r\n
+    Ingeniero de Soporte: ".$solucion_usuario."\r\n
+    Le pedimos responder este correo para el seguimiento. En caso de no recibir respuesta dentro de las próximas 24 horas hábiles, se dará por concluido y validado el proceso de atención.\r\n
+    Saludos Cordiales\r\n
+    Área de Sistemas.\r\n
+    ".$website);
 
-    $asunto_status="Estatus de Ticket ".$serie_ticket." Asunto: ".utf8_decode($asunto)."";
-    $mensaje_root_status=utf8_decode("Estimado Gerente \r\n El ticket ".$serie_ticket."  ha sido revisado por ".$solucion_usuario."\r\n 
-      el Estatus es el siguiente : ".$estatus."\r\n \r\n
-      Saludos Cordiales.\r\n Área de sistemas \r\n sistemas@veco.lat \r\n \r\n 
-      Por favor responda a este mensaje");
+    // Resuelto
+    $mensaje_mail=utf8_decode("Estimado(a) ".$_SESSION['nombre_completo'].", se ha solucionado su ticket ".$serie_ticket."\r\n
+    La solución es la siguiente: ".$solucion_edit."\r\n\r\n
+    Ingeniero de Soporte: ".$solucion_usuario."\r\n
+    Le pedimos responder este correo para validar que está conforme con la solución brindada. En caso de no estar conforme por alguna razón, por favor indíquelo en su respuesta y será evaluada por gerencia y/o jefatura para seguimiento.\r\n
+    En caso de no recibir respuesta dentro de las próximas 24 horas hábiles, se dará por concluido y validado el proceso de atención.\r\n
+    Saludos Cordiales.\r\n
+    Área de Sistemas.\r\n
+    ".$website);
+
+    // Cancelado
+    $cancel_mail=utf8_decode("Estimado(a) ".$_SESSION['nombre_completo'].".\r\n
+    El ticket ".$serie_ticket." ha sido CANCELADO por el Ingeniero de Soporte: ".$solucion_usuario."\r\n\r\n
+    El motivo es el siguiente: ".$solucion_edit."\r\n
+    Le pedimos responder este correo para validar que está conforme con la cancelación. En caso de no estar conforme por alguna razón, por favor indíquelo en su respuesta y será evaluada por gerencia y/o jefatura para seguimiento.\r\n
+    En caso de no recibir respuesta dentro de las próximas 24 horas hábiles, se dará por concluido y validado el proceso de atención.\r\n
+    Saludos Cordiales\r\n
+    Área de Sistemas\r\n
+    ".$website);
 
 	//	if(MysqlQuery::Actualizar("ticket", "estado_ticket='$estado_edit', estatus='$estatus', solucion='$solucion_edit', fecha_solucion='$solucion_fecha', observaciones='$solucion_usuario'", "id='$id_edit'")){
 
@@ -124,15 +139,9 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
       </p>
       </div>
       ';
-      if($radio_email=="option2"){
-        mail($email_root, $asunto_root, $mensaje_root, $cabecera);
-        mail($email_jefe, $asunto_root, $mensaje_jefe, $cabecera);
-        mail($email, $asunto_root, $mensaje_mail, $cabecera);
-      }
-      if($radio_email=="option3"){
-        mail($email_root, $asunto_status, $mensaje_root_status, $cabecera);
-        mail($email, $asunto_status, $status_mail, $cabecera);
-      }
+
+      // Correo de estado / seguimiento
+      mail($email_all, $asunto_status, $status_mail, $cabecera);
 
     }else{
       echo '
@@ -166,16 +175,8 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
     </div>
     ';
 
-    if($radio_email=="option2"){
-      mail($email_root, $asunto_root, $mensaje_root, $cabecera);
-      mail($email_jefe, $asunto_root, $mensaje_jefe, $cabecera);
-      mail($email, $asunto_root, $mensaje_mail, $cabecera);
-      mail($solucion_usuario,$asunto_root, $mensaje_jefe, $cabecera);
-    }
-    if($radio_email=="option3"){
-      mail($email_root, $asunto_status, $mensaje_root_status, $cabecera);
-      mail($email, $asunto_status, $status_mail, $cabecera);
-    }
+    // Correo de resuelto / cierre
+    mail($email_all, $asunto_resuelto, $mensaje_mail, $cabecera);
 
   }else{
     echo '
@@ -204,15 +205,9 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
   </p>
   </div>
   ';
-  if($radio_email=="option2"){
-    mail($email_root, $asunto_root, $mensaje_root, $cabecera);
-    mail($email_jefe, $asunto_root, $mensaje_jefe, $cabecera);
-    mail($email, $asunto_root, $mensaje_mail, $cabecera);
-  }
-  if($radio_email=="option3"){
-    mail($email_root, $asunto_status, $mensaje_root_status, $cabecera);
-    mail($email, $asunto_status, $status_mail, $cabecera);
-  }
+
+  // Correo de estado / seguimiento
+  mail($email_all, $asunto_status, $status_mail, $cabecera);
 
 }else{
   echo '
@@ -241,15 +236,9 @@ El Ticket fue actualizado con éxito
 </p>
 </div>
 ';
-if($radio_email=="option2"){
-  mail($email_root, $asunto_root, $mensaje_root, $cabecera);
-  mail($email_jefe, $asunto_root, $mensaje_jefe, $cabecera);
-  mail($email, $asunto_root, $mensaje_mail, $cabecera);
-}
-if($radio_email=="option3"){
-  mail($email_root, $asunto_status, $mensaje_root_status, $cabecera);
-  mail($email, $asunto_status, $status_mail, $cabecera);
-}
+
+// Correo de estado / seguimiento
+mail($email_all, $asunto_status, $status_mail, $cabecera);
 
 }else{
   echo '
@@ -265,22 +254,6 @@ if($radio_email=="option3"){
 break;
 
 case 'Cancelado':
-$asunto_cancel = "Ticket ".$serie_ticket." CANCELADO";
-$mensaje_root_cancel=utf8_decode("Estimado Gerente \r\n El ticket ".$serie_ticket." ha sido CANCELADO por el Ingeniero(a) de Soporte: ".$solucion_usuario."\r\n \r\n
-  El motivo es el siguiente: ".$solucion_edit."\r\n\r\n
-  Saludos Cordiales.\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
-  Por favor, responda a este mensaje");
-
-$mensaje_jefe_cancel=utf8_decode("El ticket ".$serie_ticket." ha sido CANCELADO por el Ingeniero(a) de Soporte: ".$solucion_usuario."\r\n \r\n
-  El motivo es el siguiente: ".$solucion_edit."\r\n\r\n
-  Saludos Cordiales.\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
-  Por favor responda a este mensaje");
-
-$cancel_mail=utf8_decode("Estimado usuario, se ha cancelado su ticket \r\n el motivo es el siguiente : ".$solucion_edit."\r\n \r\n 
-  Saludos Cordiales\r\n Área de sistemas \r\n tecnicos@veco.lat \r\n \r\n 
-  Por favor, responda a este ticket de APROBADO.");
-$status_mail=wordwrap($status_mail, 70, "\r\n");
-
 $fecha_hora_sol = date('Y-m-d H:i:s');
 setlocale(LC_TIME,"es_MX.UTF-8");
 date_default_timezone_set ('America/Mexico_City');
@@ -288,29 +261,20 @@ $datetime_fin_sgc = strftime('%d%b%y');
 if(mysqli_query($con,("UPDATE ticket set estado_ticket='$estado_edit', estatus='$estatus', solucion='$solucion_edit', fecha_solucion='$solucion_fecha',hora_solucion='$hora_solucion', observaciones='$solucion_usuario', fecha_hora_sol= '$fecha_hora_sol', datetime_fin_sgc='$datetime_fin_sgc'
   WHERE id ='$id_edit' "))){
 
-  echo '
-<div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+echo '
+<div class="alert alert-success alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-<h4 class="text-center">Ticket Cancelado</h4>
+<h4 class="text-center">Ticket Resuelto</h4>
 <p class="text-center">
-El Ticket fue cancelado con éxito
+El Ticket fue cerrado con éxito
 </p><br>
-<p class="text-center">
-Recuerda cancelar el documento según las buenas prácticas de documentación y entregar al usuario para firma
-</p><br>
-<center><a href="./lib/Planta_pdf.php?id='.$id_edit.'class="btn btn-lg btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</a></center>
+<center><a href="./lib/Planta_pdf.php?id='.$id_edit.'class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</a></center>
 </div>
 ';
-if($radio_email=="option2"){
-  mail($email_root, $asunto_cancel, $mensaje_root_cancel, $cabecera);
-  mail($email_jefe, $asunto_cancel, $mensaje_jefe_cancel, $cabecera);
-  mail($email, $asunto_root, $cancel_mail, $cabecera);
-  mail($solucion_usuario,$asunto_cancel, $mensaje_jefe, $cabecera);
-}
-if($radio_email=="option3"){
-  mail($email_root, $asunto_status, $mensaje_root_status, $cabecera);
-  mail($email, $asunto_status, $status_mail, $cabecera);
-}
+
+// Correo de cancelación
+mail($email_all, $asunto_cancel, $cancel_mail, $cabecera);
+
 }else{
   echo '
   <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -337,21 +301,15 @@ if(mysqli_query($con,("UPDATE ticket set estado_ticket='$estado_edit', estatus='
 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
 <h4 class="text-center">Resuelto por Compra</h4>
 <p class="text-center">
-El Ticket fue cerrsdo con éxito
+El Ticket fue cerrado con éxito
 </p><br>
 <center><a href="./lib/Planta_pdf.php?id='.$id_edit.'class="btn btn-lg btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</a></center>
 </div>
 ';
-if($radio_email=="option2"){
-  mail($email_root, $asunto_root, $mensaje_root, $cabecera);
-  mail($email_jefe, $asunto_root, $mensaje_jefe, $cabecera);
-  mail($email, $asunto_root, $mensaje_mail, $cabecera);
-  mail($solucion_usuario,$asunto_root, $mensaje_jefe, $cabecera);
-}
-if($radio_email=="option3"){
-  mail($email_root, $asunto_status, $mensaje_root_status, $cabecera);
-  mail($email, $asunto_status, $status_mail, $cabecera);
-}
+
+// Correo de resuelto / cierre
+mail($email_all, $asunto_resuelto, $mensaje_mail, $cabecera);
+
 }else{
   echo '
   <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -359,43 +317,6 @@ if($radio_email=="option3"){
   <h4 class="text-center">OCURRIÓ UN ERROR</h4>
   <p class="text-center">
   No hemos podido cerrar el Ticket
-  </p>
-  </div>
-  '; 
-}
-break;
-
-default:
-$fecha_hora_sol = date('Y-m-d H:i:s');
-$datetime_fin_sgc = date('jMy');
-if(mysqli_query($con,("UPDATE ticket set estado_ticket='$estado_edit', estatus='$estatus', solucion='$solucion_edit', fecha_solucion='$solucion_fecha',hora_solucion='$hora_solucion', observaciones='$solucion_usuario', fecha_hora_sol= '$fecha_hora_sol', datetime_fin_sgc='$datetime_fin_sgc'
-  WHERE id ='$id_edit' "))){
-
-  echo '
-<div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-<h4 class="text-center">Incidencia Actualizada</h4>
-<p class="text-center">
-El Ticket fue actualizado con exito
-</p>
-</div>
-';
-if($radio_email=="option2"){
-  mail($email_root, $asunto_root, $mensaje_root, $cabecera);
-  mail($email_jefe, $asunto_root, $mensaje_jefe, $cabecera);
-  mail($email, $asunto_root, $mensaje_mail, $cabecera);
-}
-if($radio_email=="option3"){
-  mail($email_root, $asunto_status, $mensaje_root_status, $cabecera);
-  mail($email, $asunto_status, $status_mail, $cabecera);
-}
-}else{
-  echo '
-  <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-  <h4 class="text-center">OCURRIÓ UN ERROR</h4>
-  <p class="text-center">
-  No hemos podido actualiza el Ticket
   </p>
   </div>
   '; 
@@ -620,7 +541,7 @@ $reg=mysqli_fetch_array($sql, MYSQLI_ASSOC);
         </div>
       </div>
 
-      <div class="row">
+      <!--div class="row">
         <div class="col-sm-offset-5">
           <div class="radio">
             <label>
@@ -636,7 +557,7 @@ $reg=mysqli_fetch_array($sql, MYSQLI_ASSOC);
           </div>
 
         </div>
-      </div>
+      </div-->
 
       <br>
 
