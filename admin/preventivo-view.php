@@ -96,7 +96,7 @@ display:none;
                     <label class="col-sm-222 control-label">Fecha Levantamiento</label>
                         <div class='col-sm-110'>
                         <div class="input-group">
-                            <input class="form-control" type="text"  name="fecha_lev" value="<?php echo date("Y-m-d");?>" readonly>
+                            <input class="form-control" type="text"  name="fecha_lev" value="<?php echo date("d/m/Y");?>" readonly>
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                         </div>
                         </div>
@@ -154,7 +154,8 @@ Limpieza de Teléfono IP
 Limpieza de Impresora
 Mantenimiento a Celular Empresarial
 Validación de buen estado de etiqueta de identificación
-Revisión de cableado estructurado</textarea>
+Revisión de cableado estructurado
+Revisión de dispositivos de almacenamiento ajenos a VECO</textarea>
                         </div>
                     </div>
                 </div>
