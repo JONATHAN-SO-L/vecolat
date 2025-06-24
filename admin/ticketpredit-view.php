@@ -22,6 +22,21 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
 		$email=  MysqlQuery::RequestPost('email_ticket');
 		$serie_ticket=  MysqlQuery::RequestPost('serie_ticket');
         $requisiciones = MysqlQuery::RequestPost('requisiciones');
+
+        // Recopilación de datos de actividades realizadas
+        $clean_hw = MysqlQuery::RequestPost('clean_hw');
+        $delete_temp = MysqlQuery::RequestPost('delete_temp');
+        $antivirus = MysqlQuery::RequestPost('antivirus');
+        $status_pc = MysqlQuery::RequestPost('status_pc');
+        $peripherics = MysqlQuery::RequestPost('peripherics');
+        $onedrive = MysqlQuery::RequestPost('onedrive');
+        $ip_phone = MysqlQuery::RequestPost('ip_phone');
+        $printer = MysqlQuery::RequestPost('printer');
+        $bussiness_phone = MysqlQuery::RequestPost('bussiness_phone');
+        $identify = MysqlQuery::RequestPost('identify');
+        $routing = MysqlQuery::RequestPost('routing');
+        $usb = MysqlQuery::RequestPost('usb');
+
 		if(isset($_POST['id_edit'])){
 			$id_edit= $_POST['id_edit'];
 		}else{
@@ -69,6 +84,93 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
             $equipo= NULL;
         }
 
+        $nombre_usuario = $reg['usuario'];
+
+        switch ($ing_soporte) {
+			case 'a.lorenzana@devinsa.com':
+				$ing_mantto = 'Marco Antonio Lorenzana Sotelo';
+			break;
+
+			case 's.gonzalez@veco.com.mx':
+				$ing_mantto = 'Santos Gonzalez Espinoza';
+			break;
+
+			case 'e.hernandez@veco.mx':
+				$ing_mantto = 'Elizabeth Hernandez Gonzalez';
+			break;
+
+			case 'j.sanchez@veco.mx':
+				$ing_mantto = 'Jonathan Jaziel Sanchez Ortiz';
+			break;
+		}
+
+/*************************************
+CORREOS SALIENTES CIERRE MANTENIMIENTO
+*************************************/
+// Remitentes y asuntos
+$cabecera = 'From: Soporte Devinsa <tecnicos@veco.lat>';
+$email_jefes = 'sistemas@veco.mx';
+$email_usuario = $reg['email_cliente'];
+$email_soporte = $reg['solucion_admin'].', '.$email_jefes;
+$email_all = $email_usuario.', '.$email_soporte;
+
+$asunto_cierre = "Mantenimiento ".$serie_ticket." llevado en tiempo y forma";
+$asunto_reprogramado = "Mantenimiento ".$serie_ticket." reprogramado";
+$asunto_cancelado = "Mantenimiento ".$serie_ticket." cancelado";
+
+$website = 'https://veco.lat/soporte.php';
+
+// Resuelto
+# Usuario
+$mensaje_usuario=utf8_decode("Estimado ".$reg['usuario']." se ha realizado el mantenimiento ".$serie_ticket." correspondiente a su equipo ".$equipo." con las siguientes observaciones: \r\n
+".$solucion_edit." \r\n\r\n
+Se realizaron las siguientes actividades:\r\n
+1) Limpieza de Hardware: ".$clean_hw."\r\n
+2) Eliminar Archivos Temporales en Disco Local, Historiales y Cookies de Navegadores Web: ".$delete_temp."\r\n
+3) Ejecución de Análisis Completo con Antivirus: ".$antivirus."\r\n
+4) Comprobación de Estado del Equipo: ".$status_pc."\r\n
+5) Verificación de Estado de Periféricos: ".$peripherics."\r\n
+6) Revisión de OneDrive sincronizado: ".$onedrive."\r\n
+7) Limpieza de Teléfono IP: ".$ip_phone."\r\n
+8) Limpieza de Impresora: ".$printer."\r\n
+9) Mantenimiento a Celular Empresarial: ".$bussiness_phone."\r\n
+10) Validación de buen estado de etiqueta de identificación: ".$identify."\r\n
+11) Revisión de cableado estructurado: ".$routing."\r\n
+12) Revisión de dispositivos de almacenamiento ajenos a VECO: ".$usb."\r\n
+Le pedimos responder este correo para validar que está conforme con la solución brindada. En caso de no estar conforme por alguna razón, por favor indíquelo en su respuesta y será evaluada por gerencia y/o jefatura para seguimiento.
+En caso de no recibir respuesta dentro de las próximas 24 horas hábiles, se dará por concluido y validado el proceso de atención.\r\n\r\n
+Saludos Cordiales\r\n
+Área de Sistemas.\r\n
+".$website);
+
+# Sistemas
+$mensaje_sistemas=utf8_decode("Estimada Área de Sistemas, se ha realizado el mantenimiento correspondiente al ticket #".$serie_ticket." con las siguientes observaciones: \r\n
+".$solucion_edit."\r\n\r\n
+Solicitud de mejora (Requisiciones): ".$requisiciones."\r\n\r\n
+Saludos Cordiales\r\n
+Área de Sistemas \r\n
+Por favor, NO responda a este mensaje, es un envío automático");
+
+
+// Reprogramado
+$mensaje_reprogramar=utf8_decode("Estimado ".$reg['usuario']."\r\n
+Se ha reprogramado el mantenimiento ".$serie_ticket." del equipo ".$equipo."\r\n
+Motivo: ".$seguimiento."\r\n\r\n
+Ingeniero de Soporte asignado: ".$ing_mantto."\r\n\r\n
+Por favor, responda a este mensaje CONFIRMANDO.\r\n
+Saludos Cordiales\r\n
+Área de Sistemas.\r\n
+".$website);
+
+
+// Cancelado
+# Usuario
+$mensaje_cancel=utf8_decode("Estimado ".$reg['usuario']." se ha cancelado el mantenimiento ".$serie_ticket." correspondiente a su equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit."\r\n\r\n 
+Le pedimos responder este correo para validar que está conforme con la cancelación. En caso de no estar conforme por alguna razón, por favor indíquelo en su respuesta y será evaluada por gerencia y/o jefatura para seguimiento.\r\n
+En caso de no recibir respuesta dentro de las próximas 24 horas hábiles, se dará por concluido y validado el proceso de atención.\r\n\r\n
+Saludos Cordiales\r\n
+Área de Sistemas\r\n
+".$website);
 
 /***************************************************************************************************
  *                           Condicional de Estado de Mantenimiento                                *
@@ -89,27 +191,10 @@ switch ($_POST['estado_ticket']) {
         $datetime_inicio_sgc = strftime('%d%b%y');
         if(MysqlQuery::Actualizar("sop_preventivo", "estado_ticket='$estado_edit', seguimiento='$seguimiento', fecha_hora_seg='$fecha_seg'", "id='$id_edit'")){
 
-     $cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
-     $asunto="Mantenimiento ".$serie_ticket." reprogramado";
-     $email_root="a.lorenzana@devinsa.com";
-     $email_jefe="s.gonzalez@veco.com.mx";
-     $email= $reg['email_cliente'];
-     $email_soporte= $reg['solucion_admin'];
-     
-     $mensaje_reprog=utf8_decode("Se ha reprogramado el mantenimiento ".$serie_ticket." del equipo ".$equipo."con el seguimiento mencionado a continuación: \r\n \r\n ".$seguimiento." \r\n \r\n 
-     Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
-     Por favor, responda de conformidad a este correo");
-     $mensaje_reprog=wordwrap($mensaje_reprog, 70, "\r\n");
-
-     $mensaje_user_reprog=utf8_decode("Estimado usuario.\r\n\r\n
-     Se ha reprogramado el mantenimiento ".$serie_ticket." del equipo ".$equipo."con el seguimiento mencionado a continuación: \r\n \r\n ".$seguimiento." \r\n\r\n 
-     Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
-     Por favor, responda de conformidad a este correo");
-
-     mail($email_root, $asunto, $mensaje_reprog, $cabecera);
-     mail($email_jefe, $asunto, $mensaje_reprog, $cabecera);
-     mail($email_soporte, $asunto, $mensaje_reprog, $cabecera);
-     mail($email, $asunto, $mensaje_user_reprog, $cabecera);
+     if (isset($_POST['optionsRadios1'])) {
+        // Correo de reprogramación
+        mail($email_all, $asunto_reprogramado, $mensaje_reprogramar, $cabecera);
+     }
 
      echo '
      <div class="alert alert-success alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -164,7 +249,7 @@ switch ($_POST['estado_ticket']) {
     date_default_timezone_set ('America/Mexico_City');
     $date_hecho_sgc = strftime('%d%b%y');
   //fecha_hora_sol='$resuelto',
-    if(MysqlQuery::Actualizar("sop_preventivo", "estado_ticket='$estado_edit', observaciones='$solucion_edit', fecha_mant='$fecha_mant', requisiciones='$requisiciones', date_hecho_sgc='$date_hecho_sgc'", "id='$id_edit'")){
+    if(MysqlQuery::Actualizar("sop_preventivo", "estado_ticket='$estado_edit', actividad_1='$clean_hw', actividad_2='$delete_temp', actividad_3='$antivirus', actividad_4='$status_pc', actividad_5='$peripherics', actividad_6='$onedrive', actividad_7='$ip_phone', actividad_8='$printer', actividad_9='$bussiness_phone', actividad_10='$identify', actividad_11='$routing', actividad_12='$usb', observaciones='$solucion_edit', fecha_mant='$fecha_mant', requisiciones='$requisiciones', date_hecho_sgc='$date_hecho_sgc'", "id='$id_edit'")){
 
      echo '
      <div class="alert alert-success alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -176,36 +261,12 @@ switch ($_POST['estado_ticket']) {
      <center><a href="./lib/Planta_pdf_prev.php?id='.$reg['serie'].'" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</a></center>
      </div>
      ';
-     if($radio_email=="option2"){
 
-        $from="Soporte Devinsa <tecnicos@veco.lat>";
-        $cabecera="From:".$from;
-        $asunto="Mantenimiento ".$serie_ticket." llevado en tiempo y forma";
-        $email= $reg['email_cliente'];
-        $mensaje_mail=utf8_decode("Estimado usuario se ha realizado el mantenimiento ".$serie_ticket." correspondiente a su equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n 
-        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n
-        Por favor, ES IMPORTANTE RESPONDA EL CORREO CON SU CONFORMIDAD DE LA SOLUCIÓN.");
-        $mensaje_mail=wordwrap($mensaje_mail, 70, "\r\n");
-
-        $email_root="a.lorenzana@devinsa.com";
-        $mensaje_root=utf8_decode("Estimado Gerente se ha realizado el mantenimiento correspondiente al ticket #".$serie_ticket." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
-        Solicitud de mejora (Requisiciones): ".$requisiciones." \r\n \r\n
-        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
-        Por favor, NO responda a este mensaje, es un envio automatico");
-        $mensaje_root=wordwrap($mensaje_root, 70, "\r\n");
-
-        $email_jefe = "s.gonzalez@veco.com.mx";
-        $mensaje_jefe=utf8_decode("Se ha realizado el mantenimiento correspondiente al ticket #".$serie_ticket." del equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
-        Solicitud de mejora (Requisiciones): ".$requisiciones." \r\n \r\n
-        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
-        Por favor, NO responda a este mensaje, es un envio automatico");
-        $mensaje_jefe=wordwrap($mensaje_jefe, 70, "\r\n");
-
-        mail($email, $asunto, $mensaje_mail, $cabecera);
-        mail($email_root, $asunto, $mensaje_root, $cabecera);
-        mail($email_jefe, $asunto, $mensaje_jefe, $cabecera);
-        mail($ing_soporte, $asunto, $mensaje_jefe, $cabecera);
-    }
+     if (isset($_POST['optionsRadios1'])) {
+        // Correo de Cierre
+        mail($email, $asunto_cierre, $mensaje_usuario, $cabecera); # Usuario
+        mail($email_soporte, $asunto_cierre, $mensaje_sistemas, $cabecera); # Sistemas
+     }
 
 }else{
  echo '
@@ -237,36 +298,11 @@ case 'Cancelado':
      <center><a href="./lib/Planta_pdf_prev.php?id='.$reg['serie'].'" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</a></center>
      </div>
      ';
-     if($radio_email=="option2"){
 
-        $from="Soporte Devinsa <tecnicos@veco.lat>";
-        $cabecera="From:".$from;
-        $asunto="Mantenimiento ".$serie_ticket." cancelado";
-        $email= $reg['email_cliente'];
-        $mensaje_mail=utf8_decode("Estimado usuario se ha cancelado el mantenimiento ".$serie_ticket." correspondiente a su equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n 
-        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n
-        Por favor, ES IMPORTANTE RESPONDA EL CORREO CON SU CONFORMIDAD DE LA SOLUCIÓN.");
-        $mensaje_mail=wordwrap($mensaje_mail, 70, "\r\n");
-
-        $email_root="a.lorenzana@devinsa.com";
-        $mensaje_root=utf8_decode("Estimado Gerente se ha cancelado el mantenimiento correspondiente al ticket #".$serie_ticket." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
-        Solicitud de mejora (Requisiciones): ".$requisiciones." \r\n \r\n
-        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
-        Por favor, NO responda a este mensaje, es un envio automatico");
-        $mensaje_root=wordwrap($mensaje_root, 70, "\r\n");
-
-        $email_jefe = "s.gonzalez@veco.com.mx";
-        $mensaje_jefe=utf8_decode("Se ha cancelado el mantenimiento correspondiente al ticket #".$serie_ticket." del equipo ".$equipo." con las siguientes observaciones: ".$solucion_edit." \r\n \r\n
-        Solicitud de mejora (Requisiciones): ".$requisiciones." \r\n \r\n
-        Saludos Cordiales\r\n Área de sistemas \r\n soporte_tecnico@veco.lat \r\n \r\n 
-        Por favor, NO responda a este mensaje, es un envio automatico");
-        $mensaje_jefe=wordwrap($mensaje_jefe, 70, "\r\n");
-
-        mail($email, $asunto, $mensaje_mail, $cabecera);
-        mail($email_root, $asunto, $mensaje_root, $cabecera);
-        mail($email_jefe, $asunto, $mensaje_jefe, $cabecera);
-        mail($ing_soporte, $asunto, $mensaje_jefe, $cabecera);
-    }
+     if (isset($_POST['optionsRadios1'])) {
+        // Correo de Cancelación
+        mail($email_all, $asunto_cancelado, $mensaje_cancel, $cabecera);
+     }
 
 }else{
  echo '
@@ -372,7 +408,7 @@ break;
                         <option value="<?php echo $reg['estado_ticket']?>"><?php echo $reg['estado_ticket']?> (Actual)</option>
                         <option value="Programado">Programado</option>
                         <option value="Reprogramar">Reprogramar</option>
-                        <option value="Inicio">Inicio</option>
+                        <!--option value="Inicio">Inicio</option-->
                         <option value="Resuelto">Resuelto</option>
                         <option value="Cancelado">Cancelado</option>
                     </select>
@@ -381,15 +417,15 @@ break;
             </div>
         </div>
 
-                        <!--div class="form-group">
+                        <div class="form-group">
                           <label  class="col-sm-2 control-label">Usuario</label>
                           <div class="col-sm-10">
                               <div class='input-group'>
-                                  <input type="text" readonly="" class="form-control"  name="name_usuario" readonly="" value="<?php echo $reg['nombre_usuario']?>">
+                                  <input type="text" readonly="" class="form-control"  name="name_usuario" readonly="" value="<?php echo $reg['usuario'] ?>">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
                               </div>
                           </div>
-                      </div-->
+                      </div>
 
                       <div class="form-group">
                           <label  class="col-sm-2 control-label">Equipo</label>
@@ -422,9 +458,151 @@ break;
                   </div>
 
                   <div class="form-group">
-                      <label  class="col-sm-2 control-label">Mantenimiento</label>
+                      <label  class="col-sm-2 control-label">Tareas a realizar</label>
                       <div class="col-sm-10">
-                        <textarea class="form-control" rows="3"  name="mantenimiento" readonly="" required=""><?php echo utf8_decode($reg['mantenimiento'])?></textarea>
+                        <!--textarea class="form-control" rows="3"  name="mantenimiento" readonly="" required=""><?php //echo utf8_decode($reg['mantenimiento'])?></textarea-->
+                        <table class="table table-responsive table-condensed table-hover table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th><center><strong>Actividad</strong></center></th>
+                                <th><center><strong>Cumplimiento</strong></center></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Limpieza de Hardware</td>
+                                <td>
+                                    <select class="form-control" name="clean_hw" required>
+                                        <option value="<?php echo $reg['actividad_1']?>"><?php echo $reg['actividad_1']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Eliminar Archivos Temporales en Disco Local, Historiales y Cookies de Navegadores Web</td>
+                                <td>
+                                    <select class="form-control" name="delete_temp" required>
+                                        <option value="<?php echo $reg['actividad_2']?>"><?php echo $reg['actividad_2']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Ejecución de Análisis Completo con Antivirus</td>
+                                <td>
+                                    <select class="form-control" name="antivirus" required>
+                                        <option value="<?php echo $reg['actividad_3']?>"><?php echo $reg['actividad_3']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Comprobación de Estado del Equipo</td>
+                                <td>
+                                    <select class="form-control" name="status_pc" required>
+                                        <option value="<?php echo $reg['actividad_4']?>"><?php echo $reg['actividad_4']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Verificación de Estado de Periféricos</td>
+                                <td>
+                                    <select class="form-control" name="peripherics" required>
+                                        <option value="<?php echo $reg['actividad_5']?>"><?php echo $reg['actividad_5']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Revisión de OneDrive sincronizado</td>
+                                <td>
+                                    <select class="form-control" name="onedrive" required>
+                                        <option value="<?php echo $reg['actividad_6']?>"><?php echo $reg['actividad_6']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Limpieza de Teléfono IP</td>
+                                <td>
+                                    <select class="form-control" name="ip_phone" required>
+                                        <option value="<?php echo $reg['actividad_7']?>"><?php echo $reg['actividad_7']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Limpieza de Impresora</td>
+                                <td>
+                                    <select class="form-control" name="printer" required>
+                                        <option value="<?php echo $reg['actividad_8']?>"><?php echo $reg['actividad_8']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Mantenimiento a Celular Empresarial</td>
+                                <td>
+                                    <select class="form-control" name="bussiness_phone" required>
+                                        <option value="<?php echo $reg['actividad_9']?>"><?php echo $reg['actividad_9']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Validación de buen estado de etiqueta de identificación</td>
+                                <td>
+                                    <select class="form-control" name="identify" required>
+                                        <option value="<?php echo $reg['actividad_10']?>"><?php echo $reg['actividad_10']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Revisión de cableado estructurado</td>
+                                <td>
+                                    <select class="form-control" name="routing" required>
+                                        <option value="<?php echo $reg['actividad_11']?>"><?php echo $reg['actividad_11']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Revisión de dispositivos de almacenamiento ajenos a VECO</td>
+                                <td>
+                                    <select class="form-control" name="usb" required>
+                                        <option value="<?php echo $reg['actividad_12']?>"><?php echo $reg['actividad_12']?></option>
+                                        <option value="Aplica">Aplica</option>
+                                        <option value="N/A">No aplica</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -477,14 +655,14 @@ break;
 
         <div class="radio">
             <label>
-                <input type="radio" name="optionsRadios" value="option2" checked>
+                <input type="radio" name="optionsRadios1" value="option2" checked>
                 Enviar email de solución del mantenieminto al usuario
             </label>
         </div>
 
         <div class="radio">
             <label>
-                <input type="radio" name="optionsRadios" value="option1" >
+                <input type="radio" name="optionsRadios2" value="option1" >
                 No enviar email de solución del mantenieminto al usuario
             </label>
         </div>
