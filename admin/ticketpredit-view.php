@@ -108,7 +108,7 @@ if($_SESSION['nombre']!="" && $_SESSION['tipo']=="admin"){
 CORREOS SALIENTES CIERRE MANTENIMIENTO
 *************************************/
 // Remitentes y asuntos
-$cabecera = 'From: Soporte Devinsa <tecnicos@veco.lat>';
+$cabecera = 'From: Soporte Devinsa <tecnicos@veco.mx>';
 $email_jefes = 'sistemas@veco.mx';
 $email_usuario = $reg['email_cliente'];
 $email_soporte = $reg['solucion_admin'].', '.$email_jefes;
