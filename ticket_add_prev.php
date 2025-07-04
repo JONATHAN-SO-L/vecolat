@@ -117,7 +117,7 @@ if ($ubicacion == 'Planta') {
 		CORREOS SALIENTES NUEVO MANTENIMIENTO
 		************************************/
 		// Remitentes y asuntos
-		$cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
+		$cabecera="From: Soporte Devinsa <tecnicos@veco.mx>";
 		$email= "sistemas@veco.mx, ".$solucion_admin;
 		$asunto_ticket= "Aviso de Mantenimiento Preventivo: ".$id_ticket."";
 		$website = 'https://veco.lat/soporte.php';
