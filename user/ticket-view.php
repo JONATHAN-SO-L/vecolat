@@ -199,13 +199,13 @@ $observaciones="";
 CORREOS SALIENTES NUEVO TICKET
 *****************************/
 // Remitentes y asuntos del correo
-$cabecera="From: Soporte Devinsa <tecnicos@veco.lat>";
+$cabecera="From: Soporte Devinsa <tecnicos@veco.mx>";
 
 #$email_pruebas= "j.sanchez@veco.mx";
 $email_jefes= "sistemas@veco.mx";
-$email_oficinas = "hw_oficinas@veco.lat, ".$email_jefes."";
-$email_planta= "hw_planta@veco.lat, ".$email_jefes."";
-$email_software = "soporte_tecnico@veco.lat, ".$email_jefes."";
+$email_oficinas = "hw_oficinas@veco.mx, ".$email_jefes."";
+$email_planta= "hw_planta@veco.mx, ".$email_jefes."";
+$email_software = "soporte_tecnico@veco.mx, ".$email_jefes."";
 
 $asunto = "Nuevo ticket reportado ".$id_ticket.": ".utf8_decode($asunto_ticket);
 
