@@ -42,7 +42,7 @@ $size = 1;
 $level = 'L';
 $framesize = 1;
 
-$contenido = 'https://192.168.33.81/vecolat/admin/responsiva.php?'.$equipo;
+$contenido = 'https://veco.lat/admin/responsiva.php?'.$equipo;
 
 QRCode::png($contenido, $filename, $level, $size, $framesize);
 
