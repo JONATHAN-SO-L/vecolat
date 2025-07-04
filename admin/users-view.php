@@ -104,7 +104,7 @@ footer {
                                 $regpagina = 15;
                                 $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-                                $selusers=mysqli_query($mysqli,"SELECT SQL_CALC_FOUND_ROWS * FROM equipo_usuario ORDER BY area ASC LIMIT $inicio, $regpagina");
+                                $selusers=mysqli_query($mysqli,"SELECT SQL_CALC_FOUND_ROWS * FROM equipo_usuario ORDER BY num_serie ASC LIMIT $inicio, $regpagina");
 
                                 $totalregistros = mysqli_query($mysqli,"SELECT FOUND_ROWS()");
                                 $totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
@@ -116,7 +116,7 @@ footer {
                                 <thead>
                                     <tr>
                                         
-                                        <th class="text-center">Acción</th>
+                                        <th class="text-center">Etiqueta</th>
                                         <th class="text-center">Nombre Completo</th>
                                         <th class="text-center">Área</th>
 										<th class="text-center">Ubicación</th>
@@ -129,7 +129,7 @@ footer {
                                         while ($row=mysqli_fetch_array($selusers, MYSQLI_ASSOC)): 
                                     ?>
                                     <tr>
-                                        <td><center><a href="./files/qr_generador.php?<?php echo $row['id_eq_us']; ?>" class="btn btn-sm btn-info" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a></center></td>
+                                        <td><center><a href="./files/qr_generador.php?<?php echo $row['id_eq_us']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-qrcode" aria-hidden="true"></i></a></center></td>
                                         <td class="text-center"><?php echo $row['nombre_comp']; ?></td>
                                         <td class="text-center"><?php echo $row['area']; ?></td>
 										<td class="text-center"><?php echo $row['ubicacion']; ?></td>
