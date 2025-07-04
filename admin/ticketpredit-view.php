@@ -265,7 +265,7 @@ switch ($_POST['estado_ticket']) {
      if (isset($_POST['optionsRadios1'])) {
         // Correo de Cierre
         mail($email, $asunto_cierre, $mensaje_usuario, $cabecera); # Usuario
-        mail($email_soporte, $asunto_cierre, $mensaje_sistemas, $cabecera); # Sistemas
+        mail($email_soporte, $asunto_cierre, $mensaje_usuario, $cabecera); # Sistemas
      }
 
 }else{
