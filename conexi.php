@@ -5,7 +5,7 @@
  * @version: 08/2019 v1
  */
 
- $mysqli = new mysqli('localhost', "veco_dvi", "Vec83Dv19iSa@", 'veco_sims_devecchi');
+ $mysqli = new mysqli('', "", "", '');
  $mysqli -> set_charset("utf8"); 
  
 	 $user="";
