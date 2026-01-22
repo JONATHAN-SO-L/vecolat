@@ -5,8 +5,8 @@
  * @version: 08/2019 v1
  */
 
-define("USER", "veco_dvi");
-define("SERVER", "localhost");
-define("BD", "veco_sims_devecchi");
-define("PASS",  "Vec83Dv19iSa@");
+define("USER", "");
+define("SERVER", "");
+define("BD", "");
+define("PASS",  "");
 ?>
