@@ -5,8 +5,8 @@
  * @version: 08/2019 v1
  */
   
-  $bdconectada = mysql_connect('localhost','veco_dvi',"Vec83Dv19iSa@");
- $conexion = mysqli_select_db('veco_sims_devecchi', $bdconectada);
+  $bdconectada = mysql_connect('','',"");
+ $conexion = mysqli_select_db('', $bdconectada);
  $conexion -> set_charset("utf8"); 
  
 ?>
