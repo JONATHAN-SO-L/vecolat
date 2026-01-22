@@ -1,6 +1,6 @@
 <?php
 	function conectar(){
-		$servidor = "localhost";
+		$servidor = "";
 		$usuario	= "";
 		$clave		= "";
 		$bd				= "";
